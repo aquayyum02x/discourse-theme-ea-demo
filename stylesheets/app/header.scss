@@ -4,12 +4,11 @@
   box-shadow: none;
   transition: box-shadow 0.25s ease;
 
-  &::before {
+   &::before {
     content: "";
     position: absolute;
     inset: 0;
-    background: var(--ea-gradient) top center / 100% var(--ea-gradient-height)
-      no-repeat;
+    background: #01081d !important;
     opacity: 0;
     transition: opacity 0.25s ease;
     pointer-events: none;

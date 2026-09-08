@@ -43,17 +43,12 @@
     "svg_icons": [
       "chevron-down",
       "chevron-right",
-      "chevron-left",
       "chevron-up",
       "crown",
       "eye",
       "far-thumbs-up",
       "reply",
-      "book",
-      "house",
-      "clock-rotate-left",
-      "fire",
-      "award"
+      "book"
     ],
     "custom_homepage": true
   },

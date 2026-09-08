@@ -17,9 +17,6 @@ en:
       announcements: "Announcement cards. Each card has a title, an optional subtitle, an optional image, an optional link, and a size (\"big\" or \"small\") controlling how it's rendered in the grid."
       announcements_heading: "Heading shown above the announcement cards."
       announcements_shuffle: "Shuffle the display order of the announcement cards on every page load instead of using the authored order."
-      side_nav_enabled: "Show the fixed icon navigation rail on the left side of every page."
-      side_nav_top_links: "Top icon links shown in the side nav (e.g. Home, Recent, Trending, Badges). Each has a label, a Font Awesome icon name, and a URL."
-      side_nav_games: "Game shortcuts listed below the divider in the side nav. Each has a title, an image, an optional category (linking to that category's page), and an optional fallback URL."
   breadcrumbs:
     home: "EA Forums"
     admin: "Admin"

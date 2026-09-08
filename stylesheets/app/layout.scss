@@ -1,29 +1,16 @@
 html.ea-gradient {
-  body {
-    background:
-      linear-gradient(
-          180deg,
-          transparent 38%,
-          color-mix(in srgb, var(--secondary) 30%, transparent) 64%,
-          color-mix(in srgb, var(--secondary) 70%, transparent) 82%,
-          var(--secondary) 96%
-        )
-        top center / 100% var(--ea-gradient-height) no-repeat,
-      var(--ea-gradient) top center / 100% var(--ea-gradient-height) no-repeat,
-      var(--secondary);
-  }
+ background: #01081d !important;
 
   #main-outlet-wrapper {
     margin-top: var(--ea-curve-offset);
   }
 }
 
-// Override core's centered .wrap with a fixed max-width and equal side gutters.
 .wrap {
-  max-width: 1440px !important;
+  max-width: 1800px !important;
   margin-right: auto !important;
   margin-left: auto !important;
-  padding-right: 1.5em !important;
-  padding-left: 1.5em !important;
+  padding-right: 2.5em !important;
+  padding-left: 2.5em !important;
 }
 

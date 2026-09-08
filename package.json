@@ -1,0 +1,8 @@
+{
+  "name": "discourse-theme-ea-demo",
+  "private": true,
+  "scripts": {
+    "watch": "discourse_theme watch .",
+    "update": "discourse_theme update ."
+  }
+}
