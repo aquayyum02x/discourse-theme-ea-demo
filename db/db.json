@@ -1,0 +1,454 @@
+{
+    "sectionObjects": [
+        {
+            "id": "1wIer74cNuQNdXruJ0qWPD",
+            "type": "Spotlight",
+            "data": {
+                "heading": "Featured help",
+                "layoutType": "promoted_media",
+                "toolkit": [
+                    {
+                        "toolkitCard": {
+                            "avatar": "https://help.ea.com/_images/seegk6e7ypwi/5bVfVw1g5tDnag036CvpN2/a881619499490343254f0fe03fa57055/star-wars-zero-company-product-icon.webp",
+                            "title": " STAR WARS® Zero Company™",
+                            "label": "View 8 resources",
+                            "pagePath": "/games/star-wars/zero-company",
+                            "target": "_self",
+                            "listItems": [
+                                {
+                                    "title": "About STAR WARS™ Zero Company",
+                                    "target": "_self",
+                                    "pagePath": "/articles/star-wars/zero-company/platforms-pc-requirements-guide"
+                                },
+                                {
+                                    "title": "How to troubleshoot common STAR WARS Zero Company™ issues",
+                                    "target": "_self",
+                                    "pagePath": "/articles/star-wars/zero-company/troubleshoot-common-issues"
+                                },
+                                {
+                                    "title": "STAR WARS™ pre-order bonus guide",
+                                    "target": "_self",
+                                    "pagePath": "/articles/star-wars/zero-company/pre-order-guide"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "media": [
+                    {
+                        "mediaCard": {
+                            "video": {
+                                "youtubeId": "AxAgeglgSeA",
+                                "thumbnailUrl": "https://help.ea.com/thumbnail/AxAgeglgSeA/maxresdefault.jpg",
+                                "alt": "Official final trailer for Star Wars Zero Company, featuring gameplay and story scenes."
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "type": "HelpByGame",
+            "data": {
+                "title": "Help by game",
+                "previousButtonLabel": "Previous",
+                "nextButtonLabel": "Next",
+                "seeAllButton": {
+                    "title": "See all",
+                    "target": "_self",
+                    "url": " /games/"
+                },
+                "games": [
+                    {
+                        "title": "EA SPORTS FC™ 26",
+                        "pagePath": "/games/ea-sports-fc/fc-26",
+                        "boxArt": {
+                            "src": "https://help.ea.com/_images/seegk6e7ypwi/6gpdzMe7UOYdpLqPRkqZpp/0a543b117f22f4b0abf5c61570db3912/fc-26-box-art-image.webp",
+                            "alt": "EA SPORTS FC 26 Box art."
+                        }
+                    },
+                    {
+                        "title": "Battlefield™ 6",
+                        "pagePath": "/games/battlefield/battlefield-6",
+                        "boxArt": {
+                            "src": "https://help.ea.com/_images/seegk6e7ypwi/1Kj4nr2Of9rFOk0AjOtchf/69d5e5605fff932c2db821c332d2fedd/battlefield-6-box-art-image.webp",
+                            "alt": "Battlefield™ 6 box art."
+                        }
+                    },
+                    {
+                        "title": "EA SPORTS™ College Football 27",
+                        "pagePath": "/games/ea-sports-college-football/college-football-27",
+                        "boxArt": {
+                            "src": "https://help.ea.com/_images/seegk6e7ypwi/6GRGEHePCX1wEwHMLOLXMP/64be405d3caf7b637131a9e43756ac90/college-football-27-box-art-image.webp",
+                            "alt": "EA SPORTS College Football 27 cover art featuring athletes from Ole Miss, Miami, and Oregon with fireworks in the background."
+                        }
+                    },
+                    {
+                        "title": "EA SPORTS™ Madden NFL 27",
+                        "pagePath": "/games/madden-nfl/madden-nfl-27",
+                        "boxArt": {
+                            "src": "https://help.ea.com/_images/seegk6e7ypwi/7ejOMERKYDzy2t1lWidvEz/3752f797b7b4ffcf0386e9046ef2b5e0/madden-nfl-27-box-art.webp",
+                            "alt": "Madden NFL 27 key art featuring a quarterback mid-throw above a city skyline against an evening sky."
+                        }
+                    },
+                    {
+                        "title": "The Sims™ 4",
+                        "pagePath": "/games/the-sims/the-sims-4",
+                        "boxArt": {
+                            "src": "https://help.ea.com/_images/seegk6e7ypwi/3hgnebJ5hMRBFxtzfGtNwY/a5e912e88243a667636a4997739cdfae/the-sims-4-box-art-image.webp",
+                            "alt": "The Sims 4"
+                        }
+                    },
+                    {
+                        "title": "EA SPORTS FC™ Mobile",
+                        "pagePath": "/games/ea-sports-fc/fc-mobile",
+                        "boxArt": {
+                            "src": "https://help.ea.com/_images/seegk6e7ypwi/5cclF4tMXsHVU0jipEAvwe/4977d7821c215a2b3ec897cfa9bf436c/fc-mobile-box-art-image.webp",
+                            "alt": "A Real Madrid player running with a football. The EA Sports FC Mobile logo is on the left. "
+                        }
+                    },
+                    {
+                        "title": "Apex Legends™",
+                        "pagePath": "/games/apex-legends/apex-legends",
+                        "boxArt": {
+                            "src": "https://help.ea.com/_images/seegk6e7ypwi/7jN3C28fdJbwCiVBApxgDe/cadaf9fe8310b4fcc71fae54edd40810/apex-legends-box-art-image.webp",
+                            "alt": "Bloodhound jumps in front of the Apex Legends logo with a Marked banner on a glowing blue background."
+                        }
+                    },
+                    {
+                        "title": "EA SPORTS™ UFC® 6",
+                        "pagePath": "/games/ufc/ufc-6",
+                        "boxArt": {
+                            "src": "https://help.ea.com/_images/seegk6e7ypwi/6Xyiu6qHix3goZYx0o1lOj/15c08469e41e543c6add5ff322bb255e/ufc-6-box-art-image.webp",
+                            "alt": "UFC 6 logo appears beside Alex Pereira mid-punch in an octagon, with visible sweat and a blurred crowd in the background."
+                        }
+                    },
+                    {
+                        "title": "EA SPORTS™ Madden NFL 27 Mobile",
+                        "pagePath": "/games/madden-nfl/madden-nfl-mobile",
+                        "boxArt": {
+                            "src": "https://help.ea.com/_images/seegk6e7ypwi/AiT90Dzx5dQAVLagbTDUz/5bef92061bf19bb8ab83a8ab235a5bd8/madden-nfl-mobile-27-box-art-image.webp",
+                            "alt": "A quarterback poses mid-throw against a blue sky."
+                        }
+                    },
+                    {
+                        "title": "EA SPORTS™ College Football Mobile 27",
+                        "pagePath": "/games/ea-sports-college-football/college-football-mobile",
+                        "boxArt": {
+                            "src": "https://help.ea.com/_images/seegk6e7ypwi/93jEiTt9pndsNFHHjuTYW/7a7f4a818cb28d6856ebda8612bb4508/college-football-mobile-box-art-image.webp",
+                            "alt": "EA SPORTS College Football 27 cover art featuring athletes from Ole Miss, Miami, and Oregon with fireworks in the background."
+                        }
+                    },
+                    {
+                        "title": " STAR WARS® Zero Company™",
+                        "pagePath": "/games/star-wars/zero-company",
+                        "boxArt": {
+                            "src": "https://help.ea.com/_images/seegk6e7ypwi/7KvLJ7m778602oYQpIvluR/abc1fdab4bafc2d09fc4047a9c544a5f/star-wars-zero-company-box-art.webp",
+                            "alt": "Hawks, Jedi Tel-Rea, and other Star Wars: Zero Company characters pose next to the game logo against a celestial backdrop."
+                        }
+                    },
+                    {
+                        "title": "EA SPORTS™ NHL® 27",
+                        "pagePath": "/games/nhl/nhl-27",
+                        "boxArt": {
+                            "src": "https://help.ea.com/_images/seegk6e7ypwi/3XzSZpx7soVEDq1apQDRtg/8ec1c33f118c823b959b990d2dd47698/nhl-27-box-art-image.webp",
+                            "alt": "Macklin Celebrini wears a white San Jose Sharks jersey, shouting in celebration on the ice."
+                        }
+                    },
+                    {
+                        "title": "skate.™",
+                        "pagePath": "/games/skate/skate",
+                        "boxArt": {
+                            "src": "https://help.ea.com/_images/seegk6e7ypwi/3CtRmzBT1MY2iimiYjZGGx/24650845dfe86a3b311d0eaf98311938/skate-box-art-image.webp",
+                            "alt": "skate.™ Box art."
+                        }
+                    },
+                    {
+                        "title": "EA SPORTS™ F1® 25",
+                        "pagePath": "/games/f1/f1-25",
+                        "boxArt": {
+                            "src": "https://help.ea.com/_images/seegk6e7ypwi/7uFlTgKtPywqHrde3HEdlM/0bdbb47df95e624bbacf84d564281b12/f1-25-box-art.webp"
+                        }
+                    },
+                    {
+                        "title": "EA SPORTS FC™ 27",
+                        "pagePath": "/games/ea-sports-fc/fc-27",
+                        "boxArt": {
+                            "src": "https://help.ea.com/_images/seegk6e7ypwi/104vS9BNTIl1vzRL8H8TAK/2f6c5cf4812d8a4a8f664773c4d70cab/fc-27-box-art-image.webp",
+                            "alt": "Kylian Mbappé stands above a city skyline with the EA SPORTS FC™ 27 logo to his left."
+                        }
+                    },
+                    {
+                        "title": "Battlefield™ 2042",
+                        "pagePath": "/games/battlefield/battlefield-2042",
+                        "boxArt": {
+                            "src": "https://help.ea.com/_images/seegk6e7ypwi/7BM3UAeqZ7YDZtLibGiwT5/d6d6b82e82f316475badd74c61f92bc4/battlefield-2042-box-art.webp",
+                            "alt": "Battlefield 2042 box art."
+                        }
+                    },
+                    {
+                        "title": "EA SPORTS™ Madden NFL 26",
+                        "pagePath": "/games/madden-nfl/madden-nfl-26",
+                        "boxArt": {
+                            "src": "https://help.ea.com/_images/seegk6e7ypwi/2v78M4oGkCIciJoXxCQhWk/5315a0ea57005c88cacccaa4d5e6dc12/madden-nfl-26-box-art-image.webp",
+                            "alt": "Madden NFL 26 Box art. "
+                        }
+                    },
+                    {
+                        "title": "EA SPORTS™ College Football 26",
+                        "pagePath": "/games/ea-sports-college-football/college-football-26",
+                        "boxArt": {
+                            "src": "https://help.ea.com/_images/seegk6e7ypwi/5POGvEEERdeLLcw7QZrrDU/212381f3724ac120e209e4daa700647d/college-football-26-box-art-image.webp",
+                            "alt": "EA SPORTS™ College Football 26 Box art."
+                        }
+                    },
+                    {
+                        "title": "EA SPORTS™ NHL® 26",
+                        "pagePath": "/games/nhl/nhl-26",
+                        "boxArt": {
+                            "src": "https://help.ea.com/_images/seegk6e7ypwi/6CjROmz858mOcgomZ8Nu9k/98d6df749c7c334a3f66d54f94f3b8f3/nhl-26-box-art-image.webp",
+                            "alt": "NHL 26 box art"
+                        }
+                    },
+                    {
+                        "title": "EA SPORTS FC™ 25",
+                        "pagePath": "/games/ea-sports-fc/fc-25",
+                        "boxArt": {
+                            "src": "https://help.ea.com/_images/seegk6e7ypwi/4KfJA26hFVFriBYuOBvAqM/0205fc40d9ed978b02567712aa2f9f46/fc-25-box-art-image.webp",
+                            "alt": "A digital rendition of Jude Bellingham standing in a victorious pose in a football stadium, below a FC 25 logo."
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "type": "HelpByTopic",
+            "id": "6BkLQlV5NGrQ4x6YIrl99A",
+            "data": {
+                "title": "Help by topic",
+                "showCategoryLabel": "Show topics",
+                "hideCategoryLabel": "Hide topics",
+                "layoutType": "two-promo-three-standard",
+                "toolkit": [
+                    {
+                        "title": "EA Account support",
+                        "description": "Get help with your EA and mobile game accounts, memberships, and subscriptions.",
+                        "icon": "AccountIcon",
+                        "linkedResources": {
+                            "title": "View 37 resources",
+                            "pagePath": "/ea-account"
+                        },
+                        "orientation": "vertical",
+                        "type": "PromotedTopic",
+                        "items": [
+                            {
+                                "title": "How to get back into your EA Account",
+                                "pagePath": "/articles/ea-account/locked-out-of-ea-account"
+                            },
+                            {
+                                "title": "What to do if your EA Account was hacked",
+                                "pagePath": "/articles/ea-account/secure-hacked-account"
+                            },
+                            {
+                                "title": "How to link to an EA Account",
+                                "pagePath": "/articles/ea-account/ea-account-linking"
+                            }
+                        ]
+                    },
+                    {
+                        "title": "Security and rules",
+                        "description": "Get help with account security, online safety, and learn the EA rules to follow.",
+                        "icon": "LockIcon",
+                        "linkedResources": {
+                            "title": "View 16 resources",
+                            "pagePath": "/security-and-rules"
+                        },
+                        "orientation": "vertical",
+                        "type": "PromotedTopic",
+                        "items": [
+                            {
+                                "title": "Account locks, bans, and suspensions",
+                                "pagePath": "/articles/security-and-rules/locked-banned-suspended-accounts"
+                            },
+                            {
+                                "title": "Enable 2FA on your EA Account",
+                                "pagePath": "/articles/security-and-rules/two-factor-authentication"
+                            },
+                            {
+                                "title": "Report cheating, harassment, and illegal content",
+                                "pagePath": "/articles/security-and-rules/report-players"
+                            }
+                        ]
+                    },
+                    {
+                        "title": "Orders and rewards",
+                        "description": "Get help with missing content, purchases, and product codes.",
+                        "icon": "RewardIcon",
+                        "linkedResources": {
+                            "title": "View 16 resources",
+                            "pagePath": "/orders-and-rewards"
+                        },
+                        "orientation": "horizontal",
+                        "type": "StandardTopic"
+                    },
+                    {
+                        "title": "Technical issues",
+                        "description": "Get help with connection and game performance issues, errors, and bugs.",
+                        "icon": "TroubleshootingIcon",
+                        "linkedResources": {
+                            "title": "View 19 resources",
+                            "pagePath": "/technical-issues"
+                        },
+                        "orientation": "horizontal",
+                        "type": "StandardTopic"
+                    },
+                    {
+                        "title": "Platform support",
+                        "description": "Get help with your platform, including EA app, mobile, and PC.",
+                        "icon": "PlatformsIcon",
+                        "linkedResources": {
+                            "title": "View 18 resources",
+                            "pagePath": "/platforms"
+                        },
+                        "orientation": "horizontal",
+                        "type": "StandardTopic"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "NewsSection",
+            "id": "4prmvEii1ESECXhVYZksL5",
+            "data": {
+                "news": [
+                    {
+                        "image": {
+                            "src": "https://drop-assets.ea.com/images/1wgaRkv2i881pbnpSdoHks/27cfd8950f45968c51f7ae9c9f05e69d/PATCH_NOTES.png?im=AspectCrop=(16,9),xPosition=0.5,yPosition=0.5",
+                            "alt": "Orange background with a stylized arrow, text reads: \"Patch Notes\" with the skate. logo in the bottom left corner."
+                        },
+                        "category": "News",
+                        "game": "Skate",
+                        "title": "skate. 0.32.0 Patch Notes",
+                        "body": "Update 0.32.0 goes live on September 8. Get a look at the bug fixes and feature updates we’re releasing.",
+                        "button": {
+                            "url": "https://www.ea.com/en/games/skate/skate/news/update-032-0",
+                            "text": "Read more",
+                            "target": "_blank"
+                        }
+                    },
+                    {
+                        "image": {
+                            "src": "https://drop-assets.ea.com/images/4YGteRD4cywCDaTWV7GKwm/e977a799b7520c185297a4e6a18975d4/F126_Monaco_Audi_Bortoleto_E_16x9.png?im=AspectCrop=(16,9),xPosition=0.5,yPosition=0.5",
+                            "alt": "A dynamic top-down shot of Gabriel Bortoleto's Audi Formula 1 car, its silver and yellow livery sharp against the motion-blurred Monaco track. The overhead angle highlights the car's aerodynamic design as it powers through the iconic street circuit."
+                        },
+                        "category": "News",
+                        "game": "EA Sports F1 25",
+                        "title": "THE F1® 2026 SEASON GETS EVEN BIGGER WITH THE SEPTEMBER UPDATE",
+                        "body": "Rewrite the Grid with F2™ 2026, updated F1® cars, seven special liveries, and more in EA SPORTS™ F1® 25: 2026 Season Edition",
+                        "button": {
+                            "url": "https://www.ea.com/en/games/f1/f1-25/news/f1-25-2026-season-edition-new-content",
+                            "text": "Read more",
+                            "target": "_blank"
+                        }
+                    },
+                    {
+                        "image": {
+                            "src": "https://drop-assets.ea.com/images/7kbfpBbbqPQpIhPhpOgOlb/9a680b2221165b28285e0c2457969f4f/CMTY-AC-0209KJ-EN.jpg?im=AspectCrop=(16,9),xPosition=0.5,yPosition=0.5",
+                            "alt": "Battlefield 6 Anticheat Update, July 2026, displayed over a combat scene with a helicopter, soldiers, smoke and fire."
+                        },
+                        "category": "News",
+                        "game": "Battlefield 6",
+                        "title": "Battlefield 6 - Anticheat Metrics - July",
+                        "body": "Battlefield 6's Anticheat team is back to go over the metrics for Match Infection Rates in July.",
+                        "button": {
+                            "url": "https://www.ea.com/en/games/battlefield/battlefield-6/news/battlefield-6-anticheat-metrics-july26",
+                            "text": "Read more",
+                            "target": "_blank"
+                        }
+                    }
+                ]
+            }
+        }
+    ],
+    "pageTheme": {
+        "heroGraphic": {
+            "src": "https://help.ea.com/_images/seegk6e7ypwi/7ozzw35HVdI8HKp6Jx1l3k/2ae6f88aa9d0ba8c0c6c450661999642/battlefield-6-launch-character.webp"
+        },
+        "isUpdatedBrand": true,
+        "shapes": true
+    },
+    "heroArea": {
+        "greeting": {
+            "auth": "Hello {{persona_name}},",
+            "unauth": "Hello EA Gamer!"
+        },
+        "searchBar": {
+            "logoTitle": "Help",
+            "placeholder": "Search EA Help",
+            "cancelText": "cancel",
+            "clearSearchHistoryText": "Clear search history"
+        }
+    },
+    "pageSeo": {
+        "metaTitle": "EA Help: Official support",
+        "metaDesc": "Get help with your EA games and accounts. Browse troubleshooting guides, find answers to common issues, and level up your gameplay.",
+        "ogTitle": "EA Help: Official support",
+        "ogDesc": "Get help with EA games and accounts, troubleshoot common issues, and level up your gameplay.",
+        "ogImageAlt": "A white EA Help logo against a dark blue background.",
+        "ogType": "website",
+        "ogImage": {
+            "title": "ea-help-og-image",
+            "contentType": "image/jpeg",
+            "url": "https://help.ea.com/_images/seegk6e7ypwi/4RkzWimbzfh203OB9XlL7a/65a57c7901970fcf95da00fd9a7f1195/ea-help-og-image.jpg",
+            "width": 1200,
+            "height": 630
+        },
+        "noIndex": false,
+        "domain": "https://help.ea.com/"
+    },
+    "quickLinks": [
+        {
+            "title": "Manage my account",
+            "icon": "AccountIcon",
+            "target": "_blank",
+            "url": "https://myaccount.ea.com/am/ui/account-information",
+            "noFollow": false
+        },
+        {
+            "title": "Manage linked accounts",
+            "icon": "LinkIcon",
+            "target": "_blank",
+            "url": "https://myaccount.ea.com/am/ui/connected-accounts"
+        },
+        {
+            "title": "Penalty History",
+            "icon": "UserErrorIcon",
+            "target": "_self",
+            "pagePath": "/help-tools/penalty-history"
+        },
+        {
+            "title": "My Cases",
+            "icon": "ShieldIcon",
+            "target": "_self",
+            "url": "/help-my-cases/"
+        },
+        {
+            "title": "Find missing content",
+            "icon": "QuestionCircleIcon",
+            "target": "_self",
+            "pagePath": "/articles/orders-and-rewards/find-missing-ea-content"
+        }
+    ],
+    "tryAISearchSuggestions": {
+        "header": "Try asking with AI",
+        "displayCount": 2,
+        "aiSuggestions": [
+            {
+                "label": "How do I link my EA Account to Xbox?"
+            },
+            {
+                "label": "Where can I find my EA Sports FC Points?"
+            }
+        ]
+    }
+}

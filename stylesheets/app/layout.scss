@@ -17,3 +17,13 @@ html.ea-gradient {
     margin-top: var(--ea-curve-offset);
   }
 }
+
+// Override core's centered .wrap with a fixed max-width and equal side gutters.
+.wrap {
+  max-width: 1440px !important;
+  margin-right: auto !important;
+  margin-left: auto !important;
+  padding-right: 1.5em !important;
+  padding-left: 1.5em !important;
+}
+

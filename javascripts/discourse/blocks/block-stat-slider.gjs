@@ -14,6 +14,7 @@ import { block } from "discourse/blocks";
 })
 export default class BlockStatSlider extends Component {
   @service site;
+  @service eaHelpData;
 
   @tracked isAtStart = true;
   @tracked isAtEnd = true;
@@ -25,7 +26,19 @@ export default class BlockStatSlider extends Component {
     super.willDestroy(...arguments);
   }
 
+  @action
+  loadHelpData() {
+    this.eaHelpData.load();
+  }
+
   get filteredStats() {
+    console.log(this.eaHelpData,"(((((((((((((())))))))))))))")
+    const apiCards = this.eaHelpData.helpByGameCards;
+
+    if (apiCards) {
+      return apiCards;
+    }
+
     const statConfig = settings.stat_slider_display_stats || [];
 
     // eslint-disable-next-line no-console
@@ -96,8 +109,8 @@ export default class BlockStatSlider extends Component {
 
   <template>
     {{! template-lint-disable modifier-name-case }}
-    {{#if settings.stat_slider_display_stats}}
-      <section class="block-stat-slider">
+    {{#if this.filteredStats.length}}
+      <section class="block-stat-slider" {{didInsert this.loadHelpData}}>
         <div class="block-stat-slider__header">
           {{#if settings.stat_slider_title}}
             <h2 class="block-stat-slider__title">
