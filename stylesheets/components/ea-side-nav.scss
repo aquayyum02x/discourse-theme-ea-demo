@@ -1,0 +1,145 @@
+.ea-side-nav {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 150;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 4.5em;
+  padding: 1em 0;
+  overflow: hidden;
+  background: var(--header_background);
+  transition: width 150ms ease;
+
+  &.--expanded {
+    align-items: stretch;
+    width: 13em;
+  }
+
+  &__toggle {
+    position: absolute;
+    top: 0.75em;
+    right: -0.8em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.6em;
+    height: 1.6em;
+    padding: 0;
+    border: 1px solid
+      color-mix(in srgb, var(--header_primary) 25%, transparent);
+    border-radius: 50%;
+    color: var(--header_primary);
+    background: var(--header_background);
+    cursor: pointer;
+  }
+
+  &__top {
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 auto;
+    gap: 0.5em;
+    width: 100%;
+    padding: 2.5em 0.75em 0.75em;
+  }
+
+  &__link,
+  &__game {
+    display: flex;
+    align-items: center;
+    gap: 0.75em;
+    justify-content: center;
+    padding: 0.55em;
+    border-radius: 0.6em;
+    color: var(--header_primary);
+    text-decoration: none;
+    transition: background 150ms ease;
+
+    &:hover,
+    &.--active {
+      color: var(--header_primary);
+      text-decoration: none;
+      background: color-mix(in srgb, var(--header_primary) 14%, transparent);
+    }
+  }
+
+  &.--expanded &__link,
+  &.--expanded &__game {
+    justify-content: flex-start;
+  }
+
+  &__label {
+    overflow: hidden;
+    font-size: var(--font-down-1);
+    font-weight: 600;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__divider {
+    flex: 0 0 auto;
+    width: calc(100% - 1.5em);
+    height: 1px;
+    margin: 0.75em;
+    background: color-mix(in srgb, var(--header_primary) 18%, transparent);
+  }
+
+  &__games {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    gap: 0.5em;
+    width: 100%;
+    padding: 0 0.75em;
+    overflow-x: hidden;
+    overflow-y: auto;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  &__game-icon {
+    flex: 0 0 auto;
+    width: 2.35em;
+    height: 2.35em;
+    border-radius: 0.55em;
+    object-fit: cover;
+  }
+
+  &__footer {
+    flex: 0 0 auto;
+    width: 100%;
+    padding: 0.75em;
+  }
+
+  &__ea-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5em;
+    height: 2.5em;
+    margin: 0 auto;
+    border-radius: 50%;
+    color: #fff;
+    background: var(--tertiary);
+    font-size: var(--font-down-1);
+    font-weight: 800;
+    text-decoration: none;
+  }
+
+  &.--expanded &__ea-logo {
+    margin: 0;
+  }
+}
+
+html.ea-has-side-nav {
+  .d-header,
+  #main-outlet-wrapper,
+  .footer {
+    margin-left: 4.5em;
+  }
+}
