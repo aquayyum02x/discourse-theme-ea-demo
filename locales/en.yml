@@ -14,6 +14,9 @@ en:
       stat_slider_text_color: "Text color for the slider (Discourse color variable or hex value)."
       stat_slider_accent_color: "Accent color used on the stat cards and controls."
       stat_slider_card_width: "Width of each stat card, such as 12em or 180px."
+      announcements: "Announcement cards. Each card has a title, an optional subtitle, an optional image, an optional link, and a size (\"big\" or \"small\") controlling how it's rendered in the grid."
+      announcements_heading: "Heading shown above the announcement cards."
+      announcements_shuffle: "Shuffle the display order of the announcement cards on every page load instead of using the authored order."
   breadcrumbs:
     home: "EA Forums"
     admin: "Admin"

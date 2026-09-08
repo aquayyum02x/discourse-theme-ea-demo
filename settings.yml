@@ -77,3 +77,47 @@ stat_slider_accent_color:
 
 stat_slider_card_width:
   default: "12em"
+
+announcements:
+  type: objects
+  default:
+    - title: "Apex Legends: Marked Patch Notes"
+      subtitle: "Apex Legends"
+      size: "big"
+    - title: "Friday Highlights"
+      subtitle: "The Sims 4"
+      size: "small"
+    - title: "Battlefield 6 Update Notes"
+      subtitle: "Battlefield"
+      size: "small"
+    - title: "Full FC 27 Player Database"
+      subtitle: "EA Sports FC 27"
+      size: "small"
+  schema:
+    name: announcement
+    properties:
+      title:
+        type: string
+        required: true
+        validations:
+          min_length: 1
+          max_length: 150
+      subtitle:
+        type: string
+      size:
+        type: enum
+        default: small
+        choices:
+          - big
+          - small
+      image:
+        type: string
+      link:
+        type: string
+
+announcements_heading:
+  default: "Announcements"
+
+announcements_shuffle:
+  type: bool
+  default: false
