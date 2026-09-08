@@ -1,0 +1,219 @@
+.block-stat-slider {
+  box-sizing: border-box;
+  width: 100%;
+  padding: clamp(1em, 2vw, 1.5em);
+  overflow: hidden;
+  color: $stat-slider-text-color;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1em;
+    margin-bottom: 1em;
+  }
+
+  &__title {
+    min-width: 0;
+    margin: 0;
+    color: $stat-slider-text-color;
+    font-size: var(--font-up-2);
+    font-weight: 700;
+    letter-spacing: 0;
+  }
+
+  &__controls {
+    display: flex;
+    flex: 0 0 auto;
+    gap: 0.5em;
+  }
+
+  &__arrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25em;
+    height: 2.25em;
+    padding: 0;
+    border: 1px solid
+      color-mix(in srgb, $stat-slider-text-color 22%, transparent);
+    border-radius: 50%;
+    color: $stat-slider-text-color;
+    background: transparent;
+    cursor: pointer;
+
+    &:hover:not(:disabled),
+    &:focus-visible:not(:disabled) {
+      border-color: $stat-slider-accent-color;
+      color: $stat-slider-accent-color;
+    }
+
+    &:disabled {
+      opacity: 0.35;
+      cursor: default;
+    }
+  }
+
+  &__viewport {
+    overflow-x: auto;
+    scrollbar-width: none;
+    scroll-behavior: smooth;
+    overscroll-behavior-inline: contain;
+    scroll-snap-type: x mandatory;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  &__list {
+    display: flex;
+    gap: 0.85em;
+    width: max-content;
+    margin: 0;
+    padding: 0.25em 0 0.5em;
+    list-style: none;
+  }
+
+  &__item {
+    flex: 0 0 $stat-slider-card-width;
+    width: $stat-slider-card-width;
+    min-width: 0;
+    scroll-snap-align: start;
+  }
+
+  &__card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 9.5em;
+    box-sizing: border-box;
+    padding: 1.25em;
+    overflow: hidden;
+    border: 1px solid
+      color-mix(in srgb, $stat-slider-text-color 16%, transparent);
+    border-radius: 0.8em;
+    color: $stat-slider-text-color;
+    background:
+      linear-gradient(
+        145deg,
+        color-mix(in srgb, $stat-slider-accent-color 18%, transparent),
+        transparent 60%
+      ),
+      color-mix(in srgb, $stat-slider-background-color 82%, $stat-slider-text-color);
+    text-decoration: none;
+    transition:
+      border-color 150ms ease,
+      transform 150ms ease;
+
+    &::after {
+      position: absolute;
+      right: -2em;
+      bottom: -3em;
+      width: 7em;
+      height: 7em;
+      border: 1px solid
+        color-mix(in srgb, $stat-slider-accent-color 30%, transparent);
+      border-radius: 50%;
+      content: "";
+    }
+
+    &:hover,
+    &:focus-visible {
+      border-color: $stat-slider-accent-color;
+      color: $stat-slider-text-color;
+      text-decoration: none;
+      transform: translateY(-0.15em);
+    }
+
+    &:has(.block-stat-slider__media) {
+      min-height: 0;
+      padding: 0;
+      overflow: visible;
+      border: none;
+      background: none;
+
+      &::after {
+        display: none;
+      }
+
+      &:hover,
+      &:focus-visible {
+        transform: translateY(-0.15em);
+      }
+
+      .block-stat-slider__label {
+        margin-top: 0.6em;
+      }
+    }
+  }
+
+  &__media {
+    position: relative;
+    display: block;
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    border-radius: 0.6em;
+    background: color-mix(in srgb, $stat-slider-text-color 8%, transparent);
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__label {
+    position: relative;
+    z-index: 1;
+    margin-top: auto;
+    overflow: hidden;
+    color: $stat-slider-text-color;
+    font-size: var(--font-up-1);
+    font-weight: 600;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__card:has(.block-stat-slider__media) {
+    .block-stat-slider__label {
+      display: -webkit-box;
+      overflow: hidden;
+      font-size: var(--font-0);
+      font-weight: 500;
+      white-space: normal;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+    }
+  }
+
+  @media screen and (width < 45em) {
+    &__header {
+      align-items: flex-start;
+    }
+
+    &__item {
+      flex-basis: min($stat-slider-card-width, 78vw);
+      width: min($stat-slider-card-width, 78vw);
+    }
+
+    &__card {
+      min-height: 8.5em;
+
+      &:has(.block-stat-slider__media) {
+        min-height: 0;
+      }
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &__viewport {
+      scroll-behavior: auto;
+    }
+
+    &__card {
+      transition: none;
+    }
+  }
+}
