@@ -1,4 +1,4 @@
-import { Card } from "antd";
+import Card from "antd/es/card";
 
 function shuffle(cards) {
   const result = [...cards];

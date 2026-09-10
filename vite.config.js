@@ -2,6 +2,9 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
 export default defineConfig({
+  define: {
+    "process.env.NODE_ENV": JSON.stringify("production"),
+  },
   plugins: [react()],
   build: {
     emptyOutDir: true,
@@ -12,5 +15,13 @@ export default defineConfig({
       name: "EaReactWidgets",
     },
     outDir: "javascripts/discourse/react-dist",
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          "ant-design": ["antd/es/card"],
+        },
+        chunkFileNames: "[name]-[hash].js",
+      },
+    },
   },
 });
