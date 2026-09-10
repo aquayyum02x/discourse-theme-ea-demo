@@ -31,7 +31,7 @@ export default function AnnouncementGrid() {
   return (
     <section>
       <h2 className="ea-section-heading">Announcements</h2>
-      <div className="block-announcements__accordion-list">
+      <div>
         {STATIC_ANNOUNCEMENTS.map((announcement) => (
           <Accordion
             key={announcement.title}

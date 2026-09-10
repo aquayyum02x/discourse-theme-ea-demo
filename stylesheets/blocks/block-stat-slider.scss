@@ -1,4 +1,52 @@
 .block-stat-slider {
+  &__paloma-carousel {
+    width: 100%;
+  }
+
+  &__paloma-item {
+    overflow: hidden;
+    border: 1px solid color-mix(in srgb, #fff 14%, transparent);
+    border-radius: 0.85em;
+    background: #0b1330;
+  }
+
+  &__paloma-link {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+
+    &:hover,
+    &:focus-visible {
+      color: inherit;
+      text-decoration: none;
+    }
+  }
+
+  &__paloma-card {
+    display: flex;
+    flex-direction: column;
+    min-height: 12em;
+    overflow: hidden;
+    border-radius: 0.85em;
+    background: #0b1330;
+    color: #fff;
+  }
+
+  &__paloma-image {
+    display: block;
+    width: 100%;
+    height: 10em;
+    object-fit: cover;
+  }
+
+  &__paloma-title {
+    display: block;
+    padding: 0.85em 1em;
+    color: #fff;
+    font-size: var(--font-up-1);
+    font-weight: 700;
+  }
+
   box-sizing: border-box;
   width: 100%;
   padding: clamp(1em, 2vw, 1.5em);

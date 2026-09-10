@@ -1,7 +1,7 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 import palomaStyles from "@paloma/core-ui/styles.css?inline";
-import AnnouncementGrid from "./components/announcement-grid";
+import HomepageLayout from "./components/homepage-layout";
 
 if (typeof document !== "undefined" && !document.querySelector("[data-ea-paloma-styles]")) {
   const style = document.createElement("style");
@@ -38,6 +38,6 @@ export function unmount(element) {
   roots.delete(element);
 }
 
-export function mountAnnouncements(element, props = {}) {
-  mount(element, AnnouncementGrid, props);
+export function mountHomepage(element, props = {}) {
+  mount(element, HomepageLayout, props);
 }

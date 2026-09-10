@@ -1,10 +1,10 @@
 import { apiInitializer } from "discourse/lib/api";
 import {
   mount,
-  mountAnnouncements,
+  mountHomepage,
   unmount,
 } from "../react-dist/ea-react-widgets";
 
 export default apiInitializer(() => {
-  window.EaReactWidgets = { mount, mountAnnouncements, unmount };
+  window.EaReactWidgets = { mount, mountHomepage, unmount };
 });
