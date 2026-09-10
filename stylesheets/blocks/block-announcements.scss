@@ -1,4 +1,30 @@
 .block-announcements {
+  &__accordion-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3, 0.85em);
+  }
+
+  &__accordion {
+    border: 1px solid color-mix(in srgb, #fff 14%, transparent);
+    border-radius: 0.85em;
+    background: #0b1330;
+    color: #fff;
+  }
+
+  &__accordion > h3 {
+    margin: 0;
+  }
+
+  &__accordion > h3 > button {
+    color: #fff;
+  }
+
+  &__accordion p {
+    margin: 0;
+    color: color-mix(in srgb, #fff 75%, transparent);
+  }
+
   &__grid {
     display: flex;
     align-items: stretch;

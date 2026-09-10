@@ -1,85 +1,49 @@
-import { useState } from "react";
 import { Accordion } from "@paloma/core-ui/components/Accordion";
 
-function shuffle(cards) {
-  const result = [...cards];
+const STATIC_ANNOUNCEMENTS = [
+  {
+    title: "Apex Legends: Marked Patch Notes",
+    subtitle: "Apex Legends",
+    label: "Patch notes",
+    content: "Read about the latest balance changes, fixes, and improvements.",
+  },
+  {
+    title: "Friday Highlights",
+    subtitle: "The Sims 4",
+    label: "Community update",
+    content: "See this week's featured community stories and updates.",
+  },
+  {
+    title: "Battlefield 6 Update Notes",
+    subtitle: "Battlefield",
+    label: "Game update",
+    content: "Explore the latest Battlefield 6 changes and new features.",
+  },
+  {
+    title: "Full FC 27 Player Database",
+    subtitle: "EA Sports FC 27",
+    label: "Database",
+    content: "Browse player ratings, attributes, and team information.",
+  },
+];
 
-  for (let index = result.length - 1; index > 0; index--) {
-    const randomIndex = Math.floor(Math.random() * (index + 1));
-    [result[index], result[randomIndex]] = [result[randomIndex], result[index]];
-  }
-
-  return result;
-}
-
-function AnnouncementCard({ card, isBig }) {
-  const [expanded, setExpanded] = useState(true);
-
-  return (
-    <Accordion
-      className={`block-announcements__card${isBig ? " --big" : ""}`}
-      expanded={expanded}
-      title={card.title}
-      subtitle={card.subtitle}
-      label={card.link ? "Open" : undefined}
-      leadingIcon={
-        card.image ? (
-          <img
-            className="block-announcements__accordion-icon"
-            src={card.image}
-            alt=""
-          />
-        ) : undefined
-      }
-      onToggle={(_event, nextExpanded) => setExpanded(nextExpanded)}
-    >
-      {card.image && (
-        <div className="block-announcements__media">
-          <img
-            className="block-announcements__image"
-            src={card.image}
-            alt={card.title}
-            loading="lazy"
-          />
-        </div>
-      )}
-      {card.link && (
-        <a className="block-announcements__link" href={card.link}>
-          Open announcement
-        </a>
-      )}
-    </Accordion>
-  );
-}
-
-export default function AnnouncementGrid({
-  cards = [],
-  heading,
-  shuffle: shouldShuffle = false,
-}) {
-  const orderedCards = shouldShuffle ? shuffle(cards) : cards;
-  const bigCard =
-    orderedCards.find((card) => card.size === "big") || orderedCards[0];
-  const smallCards = orderedCards.filter((card) => card !== bigCard);
-
-  if (!orderedCards.length) {
-    return null;
-  }
-
+export default function AnnouncementGrid() {
   return (
     <section>
-      {heading && <h2 className="ea-section-heading">{heading}</h2>}
-      <div className="block-announcements__grid">
-        <div className="block-announcements__hero">
-          <AnnouncementCard card={bigCard} isBig />
-        </div>
-        {smallCards.length > 0 && (
-          <div className="block-announcements__small-grid">
-            {smallCards.map((card) => (
-              <AnnouncementCard key={card.title} card={card} />
-            ))}
-          </div>
-        )}
+      <h2 className="ea-section-heading">Announcements</h2>
+      <div className="block-announcements__accordion-list">
+        {STATIC_ANNOUNCEMENTS.map((announcement) => (
+          <Accordion
+            key={announcement.title}
+            className="block-announcements__accordion"
+            title={announcement.title}
+            subtitle={announcement.subtitle}
+            label={announcement.label}
+            leadingIcon={<span aria-hidden="true">EA</span>}
+          >
+            <p>{announcement.content}</p>
+          </Accordion>
+        ))}
       </div>
     </section>
   );
