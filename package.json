@@ -2,7 +2,19 @@
   "name": "discourse-theme-ea-demo",
   "private": true,
   "scripts": {
+    "build:react": "vite build",
+    "dev:react": "vite build --watch",
+    "prewatch": "npm run build:react",
     "watch": "discourse_theme watch .",
     "update": "discourse_theme update ."
+  },
+  "dependencies": {
+    "antd": "^5.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.0.0",
+    "vite": "^6.0.0"
   }
 }
