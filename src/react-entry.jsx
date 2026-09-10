@@ -1,5 +1,6 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
+import "@paloma/core-ui/styles.css";
 import AnnouncementGrid from "./components/announcement-grid";
 
 const roots = new WeakMap();

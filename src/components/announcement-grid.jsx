@@ -1,4 +1,5 @@
-import Card from "antd/es/card";
+import { useState } from "react";
+import { Accordion } from "@paloma/core-ui/components/Accordion";
 
 function shuffle(cards) {
   const result = [...cards];
@@ -12,38 +13,42 @@ function shuffle(cards) {
 }
 
 function AnnouncementCard({ card, isBig }) {
-  const announcementCard = (
-    <Card
+  const [expanded, setExpanded] = useState(true);
+
+  return (
+    <Accordion
       className={`block-announcements__card${isBig ? " --big" : ""}`}
-      cover={
+      expanded={expanded}
+      title={card.title}
+      subtitle={card.subtitle}
+      label={card.link ? "Open" : undefined}
+      leadingIcon={
         card.image ? (
-          <div className="block-announcements__media">
-            <img
-              className="block-announcements__image"
-              src={card.image}
-              alt={card.title}
-              loading="lazy"
-            />
-          </div>
+          <img
+            className="block-announcements__accordion-icon"
+            src={card.image}
+            alt=""
+          />
         ) : undefined
       }
-      hoverable
+      onToggle={(_event, nextExpanded) => setExpanded(nextExpanded)}
     >
-      <div className="block-announcements__footer">
-        {card.subtitle && (
-          <div className="block-announcements__subtitle">{card.subtitle}</div>
-        )}
-        <div className="block-announcements__title">{card.title}</div>
-      </div>
-    </Card>
-  );
-
-  return card.link ? (
-    <a className="block-announcements__card-link" href={card.link}>
-      {announcementCard}
-    </a>
-  ) : (
-    announcementCard
+      {card.image && (
+        <div className="block-announcements__media">
+          <img
+            className="block-announcements__image"
+            src={card.image}
+            alt={card.title}
+            loading="lazy"
+          />
+        </div>
+      )}
+      {card.link && (
+        <a className="block-announcements__link" href={card.link}>
+          Open announcement
+        </a>
+      )}
+    </Accordion>
   );
 }
 

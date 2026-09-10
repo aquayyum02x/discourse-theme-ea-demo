@@ -17,9 +17,6 @@ export default defineConfig({
     outDir: "javascripts/discourse/react-dist",
     rollupOptions: {
       output: {
-        manualChunks: {
-          "ant-design": ["antd/es/card"],
-        },
         chunkFileNames: "[name]-[hash].js",
       },
     },

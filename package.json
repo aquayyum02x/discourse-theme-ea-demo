@@ -9,9 +9,14 @@
     "update": "discourse_theme update ."
   },
   "dependencies": {
-    "antd": "^5.0.0",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "@paloma/core-ui": "1.15.0",
+    "@paloma/data": "1.15.0",
+    "@paloma/form": "1.15.0",
+    "@paloma/icons": "1.15.0",
+    "@paloma/layout": "1.15.0",
+    "@paloma/primitives": "1.15.0"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.0.0",
