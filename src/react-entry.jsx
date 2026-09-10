@@ -1,7 +1,14 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-import "@paloma/core-ui/styles.css";
+import palomaStyles from "@paloma/core-ui/styles.css?inline";
 import AnnouncementGrid from "./components/announcement-grid";
+
+if (typeof document !== "undefined" && !document.querySelector("[data-ea-paloma-styles]")) {
+  const style = document.createElement("style");
+  style.dataset.eaPalomaStyles = "true";
+  style.textContent = palomaStyles;
+  document.head.appendChild(style);
+}
 
 const roots = new WeakMap();
 
