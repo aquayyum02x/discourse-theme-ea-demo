@@ -3,8 +3,9 @@ import {
   mount,
   mountHomepage,
   unmount,
+  mountSiteHeader
 } from "../react-dist/ea-react-widgets";
 
 export default apiInitializer(() => {
-  window.EaReactWidgets = { mount, mountHomepage, unmount };
+  window.EaReactWidgets = { mount, mountHomepage,mountSiteHeader, unmount };
 });

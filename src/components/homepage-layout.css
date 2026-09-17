@@ -1,0 +1,32 @@
+.ea-react-homepage-layout {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 1.25rem;
+  color: #fff;
+}
+
+.ea-react-homepage-layout__game-slider {
+  min-width: 0;
+  padding: 1rem;
+  border: 1px solid rgb(255 255 255 / 0.12);
+  border-radius: 0.75rem;
+  background: #0b1330;
+}
+
+.ea-react-homepage-layout__content-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(16rem, 22rem);
+  gap: 1rem;
+  align-items: start;
+}
+
+.ea-react-homepage-layout__views {
+  min-width: 0;
+}
+
+@media (width < 56rem) {
+  .ea-react-homepage-layout__content-grid {
+    grid-template-columns: 1fr;
+  }
+}

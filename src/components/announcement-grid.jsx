@@ -29,13 +29,13 @@ const STATIC_ANNOUNCEMENTS = [
 
 export default function AnnouncementGrid() {
   return (
-    <section>
-      <h2 className="ea-section-heading">Announcements</h2>
-      <div>
+    <section className="announcement-grid">
+      <h2 className="announcement-grid__title">Announcements</h2>
+      <div className="announcement-grid__list">
         {STATIC_ANNOUNCEMENTS.map((announcement) => (
           <Accordion
             key={announcement.title}
-            className="block-announcements__accordion"
+            className="announcement-grid__item"
             title={announcement.title}
             subtitle={announcement.subtitle}
             label={announcement.label}

@@ -50,8 +50,8 @@ export default class BlockHomepageLayout extends Component {
     this.renderReact();
   }
 
-  renderReact() {
-    mountHomepage(this.mountElement, {
+  async renderReact() {
+    await mountHomepage(this.mountElement, {
       cards: this.cards,
     });
   }

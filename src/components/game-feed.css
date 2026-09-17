@@ -1,0 +1,65 @@
+.game-feed {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid rgb(255 255 255 / 0.12);
+  border-radius: 0.75rem;
+  background: #2d2d2d;
+}
+
+.game-feed__header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem;
+  border-bottom: 1px solid rgb(255 255 255 / 0.12);
+}
+
+.game-feed__eyebrow,
+.game-feed__count {
+  color: rgb(255 255 255 / 0.58);
+  font-size: 0.75rem;
+}
+
+.game-feed__title {
+  margin: 0.25rem 0 0;
+  color: #fff;
+  font-size: 1.25rem;
+}
+
+.game-feed__list {
+  display: flex;
+  flex-direction: column;
+}
+
+.game-feed__item {
+  min-height: 5.5rem;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid rgb(255 255 255 / 0.12);
+  background: #2d2d2d;
+  color: #fff;
+}
+
+.game-feed__item.--featured {
+  min-height: 25rem;
+  background: #272727;
+}
+
+.game-feed__logo {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.25rem;
+  color: #fff;
+  background: #080808;
+  font-size: 0.6rem;
+  font-weight: 800;
+}
+
+.game-feed__reactions {
+  display: flex;
+  gap: 0.35rem;
+  color: rgb(255 255 255 / 0.62);
+  font-size: 0.65rem;
+}

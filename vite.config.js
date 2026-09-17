@@ -14,11 +14,6 @@ export default defineConfig({
       fileName: () => "ea-react-widgets.js",
       name: "EaReactWidgets",
     },
-    outDir: "javascripts/discourse/react-dist",
-    rollupOptions: {
-      output: {
-        chunkFileNames: "[name]-[hash].js",
-      },
-    },
+    outDir: "javascripts/discourse/react-dist"
   },
 });

@@ -60,3 +60,15 @@ html.ea-header-scrolled .d-header {
     opacity: 0;
   }
 }
+
+// Hides the native Discourse header when the Paloma header (rendered into the
+// "above-site-header" outlet) replaces it.
+html.ea-paloma-header-enabled .d-header {
+  display: none;
+}
+
+.ea-site-header {
+  position: sticky;
+  top: 0;
+  z-index: 900;
+}

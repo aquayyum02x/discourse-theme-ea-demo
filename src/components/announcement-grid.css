@@ -1,0 +1,35 @@
+.announcement-grid {
+  min-width: 0;
+}
+
+.announcement-grid__title {
+  margin: 0 0 0.75rem;
+  color: #fff;
+  font-size: 1.25rem;
+}
+
+.announcement-grid__list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.announcement-grid__item {
+  border: 1px solid rgb(255 255 255 / 0.14);
+  border-radius: 0.75rem;
+  background: #0b1330;
+  color: #fff;
+}
+
+.announcement-grid__item > h3 {
+  margin: 0;
+}
+
+.announcement-grid__item > h3 > button {
+  color: #fff;
+}
+
+.announcement-grid__item p {
+  margin: 0;
+  color: rgb(255 255 255 / 0.75);
+}

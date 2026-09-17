@@ -3,6 +3,20 @@ show_breadcrumbs:
   default: true
   refresh: true
 
+use_paloma_header:
+  type: bool
+  default: false
+  refresh: true
+
+paloma_header_product_name:
+  default: "EA Forums"
+
+paloma_header_primary_nav_max:
+  type: integer
+  default: 5
+  min: 0
+  max: 10
+
 category_sections:
   type: objects
   default:

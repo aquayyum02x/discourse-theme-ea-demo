@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Discourse Themes &amp; Components — Architecture &amp; Development Workflow</title>
+</head>
+<body>
+
+<h1>Discourse Themes &amp; Components — Architecture &amp; Development Workflow</h1>
+
+<p>
+A reference covering what themes and components are in Discourse, how they are implemented,
+plugin outlets and outlet boundaries, building and using custom components, the
+<code>settings.yml</code> concept, and the two supported development workflows: pure
+Ember/Glimmer versus React with Glimmer as the rendering boundary.
+</p>
+
+<hr />
+
+<h2>1. Discourse Themes Overview</h2>
+
+<p>
+A Discourse <strong>theme</strong> is not a standalone application. Discourse owns the
+application shell, routing, data layer, rendering lifecycle, and the build pipeline. A theme
+<em>injects</em> JavaScript components, CSS, admin settings, and translations into that
+already-running Ember application. The Theme CLI (<code>discourse_theme watch .</code>)
+compiles and uploads these assets to the Discourse server.
+</p>
+
+<h3>1.1 Theme vs. Plugin</h3>
+
+<table border="1" cellpadding="6" cellspacing="0">
+<thead>
+<tr><th>Aspect</th><th>Theme / Theme Component</th><th>Plugin</th></tr>
+</thead>
+<tbody>
+<tr><td>Runs</td><td>Client-side only (browser)</td><td>Server + client (Ruby + JS)</td></tr>
+<tr><td>Capabilities</td><td>UI, styling, front-end behavior, settings</td><td>Database, routes, background jobs, APIs</td></tr>
+<tr><td>Install</td><td>Upload via Admin or Theme CLI</td><td>Requires server access and rebuild</td></tr>
+<tr><td>Risk</td><td>Low — sandboxed to the front end</td><td>Higher — full server reach</td></tr>
+<tr><td>Our use</td><td>This repo customizes UI and homepage</td><td>Not used here</td></tr>
+</tbody>
+</table>
+
+<h3>1.2 Theme Entry Points</h3>
+
+<table border="1" cellpadding="6" cellspacing="0">
+<thead>
+<tr><th>File</th><th>Purpose</th></tr>
+</thead>
+<tbody>
+<tr><td><code>about.json</code></td><td>Metadata, color schemes, bundled SVG icons, theme modifiers.</td></tr>
+<tr><td><code>settings.yml</code></td><td>Declares admin-configurable settings exposed as a global <code>settings</code> object.</td></tr>
+<tr><td><code>locales/en.yml</code></td><td>Setting labels/descriptions and UI text (translatable).</td></tr>
+<tr><td><code>common/common.scss</code></td><td>Main Sass entry point; imports brand, app, components, blocks.</td></tr>
+<tr><td><code>javascripts/discourse/api-initializers/*</code></td><td>Run on boot; register components into outlets via the plugin API.</td></tr>
+<tr><td><code>package.json</code></td><td>Provides scripts (<code>watch</code>, and on the React branch <code>build:react</code>).</td></tr>
+</tbody>
+</table>
+
+<hr />
+
+<h2>2. Themes &amp; Components</h2>
+
+<p>
+Inside a theme, UI is built from <strong>components</strong>. In native Discourse, a component
+is a Glimmer <code>Component</code> class with an inline <code>&lt;template&gt;</code> block
+(the <code>.gjs</code> file format). Components hold state, expose derived values through
+getters, respond to events through actions, and render templates.
+</p>
+
+<h3>2.1 Types of Components in This Theme</h3>
+
+<table border="1" cellpadding="6" cellspacing="0">
+<thead>
+<tr><th>Kind</th><th>Location</th><th>Role</th></tr>
+</thead>
+<tbody>
+<tr><td>API Initializer</td><td><code>api-initializers/*.gjs</code></td><td>Registers components/blocks into Discourse outlets on boot.</td></tr>
+<tr><td>Block</td><td><code>blocks/*.gjs</code></td><td>A Glimmer component registered with <code>@block</code> and rendered into the homepage block outlet.</td></tr>
+<tr><td>Component</td><td><code>components/*.gjs</code></td><td>Reusable UI unit (breadcrumbs, category search, section).</td></tr>
+<tr><td>Service</td><td><code>services/*.js</code></td><td>App-wide singleton for shared state/data (like a global React context).</td></tr>
+</tbody>
+</table>
+
+<h3>2.2 Glimmer Component Anatomy (React Mapping)</h3>
+
+<table border="1" cellpadding="6" cellspacing="0">
+<thead>
+<tr><th>React</th><th>Ember / Glimmer</th></tr>
+</thead>
+<tbody>
+<tr><td>Function/class component</td><td><code>Component</code> class + inline <code>&lt;template&gt;</code></td></tr>
+<tr><td>Props</td><td><code>@args</code> via <code>this.args</code></td></tr>
+<tr><td><code>useState</code></td><td><code>@tracked</code> properties</td></tr>
+<tr><td>Derived state / selectors</td><td>Getters, e.g. <code>get cards()</code></td></tr>
+<tr><td>Context / provider</td><td>Injected <code>@service</code></td></tr>
+<tr><td><code>useEffect</code></td><td>Render modifiers: <code>didInsert</code>, <code>didUpdate</code></td></tr>
+<tr><td>Event handler</td><td><code>@action</code> + <code>{{on "click" ...}}</code></td></tr>
+<tr><td>JSX</td><td>Glimmer template syntax</td></tr>
+<tr><td>React Router</td><td>Discourse <code>router</code> service and route URLs</td></tr>
+</tbody>
+</table>
+
+<p>Example — tracked state and action:</p>
+
+<pre>
+@tracked isAtStart = true;
+
+@action
+scrollNext() {
+  this.scrollByPage(1);
+}
+</pre>
+
+<p>Conceptually equivalent React:</p>
+
+<pre>
+const [isAtStart, setIsAtStart] = useState(true);
+
+function scrollNext() {
+  scrollByPage(1);
+}
+</pre>
+
+<hr />
+
+<h2>3. Plugin Outlets &amp; Outlet Boundaries</h2>
+
+<h3>3.1 What Is a Plugin Outlet</h3>
+
+<p>
+A <strong>plugin outlet</strong> is a named, predefined insertion point that Discourse exposes
+inside its own templates. It is the sanctioned seam where a theme can inject custom markup
+without forking core templates. Discourse decides <em>where</em> the outlet lives and
+<em>when</em> it renders; your theme decides <em>what</em> renders there.
+</p>
+
+<p>
+Examples of core outlet names include <code>above-main-container</code>,
+<code>below-site-header</code>, <code>discovery-list-container-top</code>, and the homepage
+block outlet <code>homepage-blocks</code> used in this theme.
+</p>
+
+<h3>3.2 Outlet Connectors (Two Ways to Fill an Outlet)</h3>
+
+<ol>
+<li><strong>Template connectors</strong> — a file placed under
+<code>javascripts/discourse/connectors/&lt;outlet-name&gt;/&lt;my-connector&gt;.gjs</code>.
+Discourse auto-discovers and renders it in the matching outlet.</li>
+<li><strong>Programmatic API</strong> — an initializer calls a plugin-API method such as
+<code>api.renderInOutlet(...)</code> or, for the homepage, <code>api.renderBlocks(...)</code>.</li>
+</ol>
+
+<p>Programmatic registration used in this theme:</p>
+
+<pre>
+// javascripts/discourse/api-initializers/homepage-blocks.gjs
+import { apiInitializer } from "discourse/lib/api";
+import BlockHomepageLayout from "../blocks/block-homepage-layout";
+
+export default apiInitializer((api) =&gt; {
+  api.renderBlocks("homepage-blocks", [
+    { block: BlockHomepageLayout, id: "ea-homepage-layout" },
+  ]);
+});
+</pre>
+
+<p>
+The array order is the render order. On the native branch this array held two blocks (stat
+slider, then announcements); on the React branch it holds a single parent layout block that
+owns one shared React root.
+</p>
+
+<h3>3.3 Outlet Boundaries</h3>
+
+<p>
+An <strong>outlet boundary</strong> is the contract line between Discourse-controlled rendering
+and theme-controlled rendering. Everything <em>outside</em> the boundary (mounting, unmounting,
+route transitions, service availability, compilation) belongs to Discourse. Everything
+<em>inside</em> belongs to your component. Respecting this boundary keeps the theme stable
+across route changes and previews.
+</p>
+
+<table border="1" cellpadding="6" cellspacing="0">
+<thead>
+<tr><th>Owned by Discourse (outside)</th><th>Owned by your component (inside)</th></tr>
+</thead>
+<tbody>
+<tr><td>When the outlet element is inserted</td><td>What markup/state renders in it</td></tr>
+<tr><td>When the user changes routes</td><td>Derived data and event handling</td></tr>
+<tr><td>When the component is destroyed</td><td>Cleanup logic in <code>willDestroy</code></td></tr>
+<tr><td>Which services/settings exist</td><td>How those services/settings are used</td></tr>
+<tr><td>Theme compilation and upload</td><td>Component internal structure</td></tr>
+</tbody>
+</table>
+
+<p>
+<strong>Why this matters for React:</strong> in the hybrid workflow, the boundary is a Glimmer
+block. React is only mounted <em>after</em> Discourse creates the boundary element, and it is
+unmounted when Discourse destroys the block. This prevents orphaned React roots during route
+transitions.
+</p>
+
+<h3>3.4 The Blocks API (Homepage Outlet)</h3>
+
+<p>
+The homepage uses Discourse's Blocks system. A block is a Glimmer component decorated with
+<code>@block</code>, then placed into the <code>homepage-blocks</code> outlet via
+<code>api.renderBlocks()</code>.
+</p>
+
+<pre>
+@block("theme:ea-demo:homepage-layout", {
+  description:
+    "Homepage layout that mounts the React game slider and " +
+    "announcement components through one shared React root",
+})
+export default class BlockHomepageLayout extends Component {
+  // ...
+}
+</pre>
+
+<p><strong>Note:</strong> there is no standard admin drag-and-drop editor for these blocks —
+the array in the initializer is the source of truth for order.</p>
+
+<hr />
+
+<h2>4. Building &amp; Using a Custom Component</h2>
+
+<h3>4.1 Step-by-Step: A New Block</h3>
+
+<ol>
+<li>Create the component: <code>javascripts/discourse/blocks/block-example.gjs</code>.</li>
+<li>Register it with the <code>@block</code> decorator.</li>
+<li>Add it to the outlet in <code>homepage-blocks.gjs</code>.</li>
+<li>Create styles <code>stylesheets/blocks/block-example.scss</code> and import them from <code>_index.scss</code>.</li>
+<li>Add any admin inputs to <code>settings.yml</code>.</li>
+<li>Add labels/descriptions to <code>locales/en.yml</code>.</li>
+<li>Save — the Theme CLI uploads — then refresh the preview.</li>
+</ol>
+
+<p>Minimal custom block:</p>
+
+<pre>
+import Component from "@glimmer/component";
+import { tracked } from "@glimmer/tracking";
+import { service } from "@ember/service";
+import { action } from "@ember/object";
+import didInsert from "@ember/render-modifiers/modifiers/did-insert";
+import { block } from "discourse/blocks";
+
+@block("theme:ea-demo:example", { description: "Example block" })
+export default class BlockExample extends Component {
+  @service site;          // injected Discourse service
+  @tracked count = 0;     // reactive state (like useState)
+
+  get heading() {         // derived value (like a selector)
+    return settings.example_heading;
+  }
+
+  @action
+  increment() {           // event handler
+    this.count += 1;
+  }
+
+  @action
+  setup(element) {        // runs after the DOM node exists (like useEffect mount)
+    this.element = element;
+  }
+
+  &lt;template&gt;
+    &lt;section class="block-example" {{didInsert this.setup}}&gt;
+      &lt;h2&gt;{{this.heading}}&lt;/h2&gt;
+      &lt;button {{on "click" this.increment}}&gt;Clicked {{this.count}}&lt;/button&gt;
+    &lt;/section&gt;
+  &lt;/template&gt;
+}
+</pre>
+
+<h3>4.2 Built-in Methods &amp; Lifecycle</h3>
+
+<table border="1" cellpadding="6" cellspacing="0">
+<thead>
+<tr><th>Built-in</th><th>Kind</th><th>When it runs / what it does</th></tr>
+</thead>
+<tbody>
+<tr><td><code>constructor</code></td><td>Lifecycle</td><td>Component instantiation; set up initial state.</td></tr>
+<tr><td><code>{{didInsert this.fn}}</code></td><td>Modifier</td><td>After the element is inserted into the DOM (mount effect).</td></tr>
+<tr><td><code>{{didUpdate this.fn arg}}</code></td><td>Modifier</td><td>When a tracked argument changes (update effect).</td></tr>
+<tr><td><code>willDestroy()</code></td><td>Lifecycle</td><td>Before teardown; clean up listeners, timers, React roots.</td></tr>
+<tr><td><code>@tracked</code></td><td>State</td><td>Marks reactive fields that trigger re-render on change.</td></tr>
+<tr><td><code>@action</code></td><td>Binding</td><td>Binds a method as an event handler with correct <code>this</code>.</td></tr>
+<tr><td><code>@service name</code></td><td>Injection</td><td>Injects an app-wide singleton (data, router, site, custom).</td></tr>
+<tr><td><code>get x()</code></td><td>Derived</td><td>Computed value recalculated when its dependencies change.</td></tr>
+</tbody>
+</table>
+
+<p>Cleanup at the boundary (real example):</p>
+
+<pre>
+@action
+mountHomepage(element) {
+  this.mountElement = element;
+  this.renderReact();
+  this.loadHelpData();
+}
+
+willDestroy() {
+  unmount(this.mountElement);   // tear down the React root
+  super.willDestroy(...arguments);
+}
+</pre>
+
+<h3>4.3 Using a Shared Service (Single-Request Data)</h3>
+
+<p>
+A service is Discourse's equivalent of an app-wide context provider. The
+<code>eaHelpData</code> service memoizes its fetch so many components share one request:
+</p>
+
+<pre>
+export default class EaHelpData extends Service {
+  @tracked sectionObjects = null;
+  loadPromise;
+
+  load() {
+    if (this.loadPromise) {
+      return this.loadPromise;   // single-request guard
+    }
+    this.loadPromise = fetch(API_URL)
+      .then((r) =&gt; r.json())
+      .then((json) =&gt; { this.sectionObjects = json.sectionObjects || []; });
+    return this.loadPromise;
+  }
+
+  get helpByGameCards() {
+    const games = this.sectionByType("HelpByGame")?.data?.games;
+    return games?.map((g) =&gt; ({ title: g.title, link: g.pagePath, image: g.boxArt?.src })) ?? null;
+  }
+}
+</pre>
+
+<p>Any component injects it and calls <code>this.eaHelpData.load()</code>; only one network
+request is ever made.</p>
+
+<hr />
+
+<h2>5. The settings.yml Concept</h2>
+
+<p>
+<code>settings.yml</code> declares admin-configurable inputs. Each setting becomes part of a
+global <code>settings</code> object available to every component at runtime. This is how
+non-engineers safely control content and appearance without code changes.
+</p>
+
+<p>Simple scalar settings:</p>
+
+<pre>
+show_breadcrumbs:
+  type: bool
+  default: true
+  refresh: true          # re-render the page when this changes
+
+stat_slider_title:
+  default: "Community pulse"
+
+featured_content_max:
+  type: integer
+  default: 6
+  min: 1
+  max: 20
+</pre>
+
+<h3>5.1 Setting Types</h3>
+
+<table border="1" cellpadding="6" cellspacing="0">
+<thead>
+<tr><th>Type</th><th>Use</th></tr>
+</thead>
+<tbody>
+<tr><td><code>bool</code></td><td>Toggle behavior on/off.</td></tr>
+<tr><td><code>integer</code></td><td>Numeric input with <code>min</code>/<code>max</code>.</td></tr>
+<tr><td><code>string</code> (default)</td><td>Text; add <code>textarea: true</code> for long text.</td></tr>
+<tr><td><code>enum</code></td><td>Fixed set of <code>choices</code>.</td></tr>
+<tr><td><code>list</code></td><td>Simple repeatable values.</td></tr>
+<tr><td><code>categories</code></td><td>Category picker — stores category IDs.</td></tr>
+<tr><td><code>objects</code></td><td>Structured, repeatable records with a validated <code>schema</code>.</td></tr>
+</tbody>
+</table>
+
+<p>Structured objects setting with schema and validation:</p>
+
+<pre>
+announcements:
+  type: objects
+  default:
+    - title: "Apex Legends: Marked Patch Notes"
+      subtitle: "Apex Legends"
+      size: "big"
+  schema:
+    name: announcement
+    properties:
+      title:
+        type: string
+        required: true
+        validations: { min_length: 1, max_length: 150 }
+      subtitle:
+        type: string
+      size:
+        type: enum
+        default: small
+        choices: [big, small]
+      image: { type: string }
+      link:  { type: string }
+</pre>
+
+<h3>5.2 Settings &amp; Locales</h3>
+
+<p>
+Labels and descriptions shown in the admin UI live in <code>locales/en.yml</code>, keyed by the
+setting name. This keeps the schema and its human-readable text translatable and separate.
+</p>
+
+<h3>5.3 Consuming Settings in Code</h3>
+
+<p>Any setting is read directly from the global <code>settings</code> object:</p>
+
+<pre>
+settings.announcements          // array of objects
+settings.stat_slider_title      // string
+settings.category_sections      // objects with category IDs
+</pre>
+
+<p>
+<strong>Category settings store IDs</strong>, not objects. Resolve them through the injected
+<code>site</code> service:
+</p>
+
+<pre>
+categoryUrl(categoryIds) {
+  const id = Array.isArray(categoryIds) ? categoryIds[0] : categoryIds;
+  return (this.site.categories || [])
+    .find((category) =&gt; category.id === id)?.url;
+}
+</pre>
+
+<p>
+In this theme, settings also act as a <strong>fallback data source</strong>: when the API
+returns no usable game data, the parent block builds cards from
+<code>settings.stat_slider_display_stats</code> instead.
+</p>
+
+<hr />
+
+<h2>6. Development Workflows</h2>
+
+<p>
+The theme supports two implementation modes. Both keep Discourse as the owner of routing, data
+lifecycle, and compilation — they differ only in what renders the visual UI.
+</p>
+
+<h3>6.1 Option 1 — Pure Ember/Glimmer (native)</h3>
+
+<p>
+UI is authored entirely as Glimmer <code>.gjs</code> components. No second runtime, no bundler.
+Blocks are registered directly into the homepage outlet and use Discourse services and helpers
+natively.
+</p>
+
+<p>Development loop:</p>
+
+<pre>
+npm run watch          # discourse_theme watch .
+
+Edit .gjs / .scss / settings.yml / en.yml
+  -&gt; Save
+  -&gt; Theme CLI uploads the theme
+  -&gt; Refresh the Discourse preview   (no build step)
+</pre>
+
+<p>Native homepage registration:</p>
+
+<pre>
+api.renderBlocks("homepage-blocks", [
+  { block: BlockStatSlider,    id: "ea-stat-slider" },
+  { block: BlockAnnouncements, id: "ea-announcements" },
+]);
+</pre>
+
+<h3>6.2 Option 2 — React with Glimmer as the Rendering Boundary (recommended)</h3>
+
+<p>
+A single Glimmer parent block acts as the outlet boundary. It fetches/prepares data and then
+mounts a React tree (Paloma components) into its own DOM element. React is the <em>visual
+layer</em>; Glimmer remains the <em>integration layer</em>.
+</p>
+
+<pre>
+Discourse loads theme
+  -&gt; homepage-blocks initializer
+     -&gt; BlockHomepageLayout (Glimmer)            &lt;- outlet boundary
+          - eaHelpData service -&gt; DummyJSON API
+          - settings.yml fallback cards
+          - mountHomepage(element, { cards })    &lt;- React entry
+               -&gt; HomepageLayout (React)
+                    - Paloma Carousel  (StatSlider)
+                    - Paloma Accordion (AnnouncementGrid)
+</pre>
+
+<p>Two-terminal development loop:</p>
+
+<pre>
+# Terminal 1 - rebuild React on every src/**/*.jsx change
+npm run dev:react       # vite build --watch
+
+# Terminal 2 - upload theme to Discourse
+npm run watch           # prewatch hook runs one vite build first
+</pre>
+
+<p>Boundary component: mount and unmount React:</p>
+
+<pre>
+@action
+mountHomepage(element) {
+  this.mountElement = element;
+  this.renderReact();          // mount React only after element exists
+  this.loadHelpData();
+}
+
+renderReact() {
+  mountHomepage(this.mountElement, { cards: this.cards });
+}
+
+willDestroy() {
+  unmount(this.mountElement);  // avoid orphaned React roots on route change
+  super.willDestroy(...arguments);
+}
+</pre>
+
+<p>Vite bundles <code>src/</code> into a theme asset the Theme CLI uploads:</p>
+
+<pre>
+javascripts/discourse/react-dist/ea-react-widgets.js
+</pre>
+
+<p>
+<strong>Clean separation:</strong> Discourse service / API / settings concerns live in the
+Glimmer parent. Visual UI and Paloma composition live in the React children, which only receive
+prepared props.
+</p>
+
+<h3>6.3 Side-by-Side Comparison</h3>
+
+<table border="1" cellpadding="6" cellspacing="0">
+<thead>
+<tr><th>Area</th><th>Option 1 — main</th><th>Option 2 — CMC-6646</th></tr>
+</thead>
+<tbody>
+<tr><td>UI runtime</td><td>Ember/Glimmer</td><td>Glimmer boundary + React UI</td></tr>
+<tr><td>Homepage registration</td><td>Two blocks</td><td>One Glimmer parent layout block</td></tr>
+<tr><td>React/Vite</td><td>Not used</td><td>Vite builds <code>src/</code> into <code>react-dist/</code></td></tr>
+<tr><td>Component library</td><td>Discourse + theme SCSS</td><td>Paloma React + theme SCSS</td></tr>
+<tr><td>Data ownership</td><td>Glimmer block/service</td><td>Glimmer parent; React gets props</td></tr>
+<tr><td>Dev command</td><td><code>npm run watch</code></td><td><code>npm run dev:react</code> + <code>npm run watch</code></td></tr>
+<tr><td>Build risk</td><td>Low</td><td>Node deps, registry, valid bundle</td></tr>
+</tbody>
+</table>
+
+<h4>Option 1 — Pros and Cons</h4>
+
+<p><strong>Pros:</strong></p>
+<ul>
+<li>Native lifecycle, routing, services, settings, helpers.</li>
+<li>No second runtime or build pipeline.</li>
+<li>Smaller deploy surface; no private registry.</li>
+<li>Lowest risk on route transitions and previews.</li>
+</ul>
+
+<p><strong>Cons:</strong></p>
+<ul>
+<li>Existing React/Paloma components cannot be reused.</li>
+<li>React engineers must learn Glimmer/Ember conventions.</li>
+<li>Design-system components must be recreated.</li>
+</ul>
+
+<h4>Option 2 — Pros and Cons</h4>
+
+<p><strong>Pros:</strong></p>
+<ul>
+<li>Reuses Paloma and existing React knowledge.</li>
+<li>Familiar JSX authoring for rich UI.</li>
+<li>One shared React root and one data-prep step.</li>
+<li>Boundary keeps Discourse concerns out of UI.</li>
+</ul>
+
+<p><strong>Cons:</strong></p>
+<ul>
+<li>Needs Node, Vite, Paloma, private registry access.</li>
+<li>Two dev processes (Vite watch + Theme CLI).</li>
+<li>Larger bundle; must mount/unmount correctly.</li>
+<li>Subject to the 1 MB per-file upload limit.</li>
+</ul>
+
+<hr />
+
+<h2>7. Catches &amp; the 1 MB Per-File Limit</h2>
+
+<p>
+The React workflow is powerful but has real constraints. The most important is Discourse's
+<strong>per-file upload limit of 1 MB (1,048,576 characters)</strong>. The generated
+<code>ea-react-widgets.js</code> asset must stay under it or the Theme CLI upload fails.
+</p>
+
+<p><strong>Error:</strong> <code>Value is too long (maximum is 1048576 characters)</code>.
+Fixes, in order of preference:</p>
+
+<ul>
+<li>Import Paloma components by exact subpath (avoid barrel imports of the whole library).</li>
+<li>Enable Rollup <strong>chunk splitting</strong> so output is divided into multiple files, each under 1 MB.</li>
+<li>Trim unused imports and dependencies.</li>
+</ul>
+
+<p>Chunk splitting is already configured in <code>vite.config.js</code>:</p>
+
+<pre>
+build: {
+  lib: {
+    entry: "src/react-entry.jsx",
+    formats: ["es"],
+    fileName: () =&gt; "ea-react-widgets.js",
+  },
+  outDir: "javascripts/discourse/react-dist",
+  rollupOptions: {
+    output: {
+      chunkFileNames: "[name]-[hash].js",   // split large output into chunks
+    },
+  },
+}
+</pre>
+
+<p>
+Because the output format is ES modules, each emitted chunk is uploaded and resolved as a
+separate theme asset, keeping every individual file under the limit.
+</p>
+
+<h3>Other Catches to Know</h3>
+
+<table border="1" cellpadding="6" cellspacing="0">
+<thead>
+<tr><th>Symptom</th><th>Cause &amp; fix</th></tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Could not resolve ../react-dist/ea-react-widgets</code></td>
+<td>Bundle not built. Run <code>npm run build:react</code>; confirm the file exists before the Theme CLI uploads.</td>
+</tr>
+<tr>
+<td><code>ReferenceError: process is not defined</code></td>
+<td>A dep uses Node env refs. Vite replaces it: <code>define: { "process.env.NODE_ENV": '"production"' }</code>.</td>
+</tr>
+<tr>
+<td><code>Can't find stylesheet to import</code></td>
+<td>Do not import generated Vite CSS from <code>common.scss</code>. Paloma CSS is imported with <code>?inline</code> and injected once by <code>react-entry.jsx</code>.</td>
+</tr>
+<tr>
+<td><code>default is not exported by Accordion.js</code></td>
+<td>Paloma uses named exports: <code>import { Accordion } from "@paloma/core-ui/components/Accordion"</code>.</td>
+</tr>
+<tr>
+<td>Blank page / extremely narrow cards</td>
+<td>Paloma Carousel measures its child; give the card a stable width, not an unconstrained intrinsic one.</td>
+</tr>
+<tr>
+<td>API requested more than once</td>
+<td>Keep loading in the shared <code>eaHelpData</code> service; its memoized <code>loadPromise</code> is the single-request guard.</td>
+</tr>
+<tr>
+<td>Stale UI after a change</td>
+<td>CDN caches the old bundle. Hard refresh with <code>Ctrl+Shift+R</code>.</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+<strong>Secrets:</strong> the <code>@paloma</code> scope resolves through the EA GitLab registry
+using <code>GITLAB_NPM_TOKEN</code> from the shell/user environment. Never commit the token to
+<code>.npmrc</code>, <code>package.json</code>, source, or chat. Rotate immediately if exposed.
+</p>
+
+<hr />
+
+<h2>8. Architecture Recommendation</h2>
+
+<p>
+<strong>Go forward with the React + Glimmer approach (Option 2).</strong> Keeping Glimmer as the
+outlet boundary and React as the rendering layer lets EA reuse the existing <strong>Paloma</strong>
+design system instead of recreating every component natively in Glimmer.
+</p>
+
+<h3>Rationale</h3>
+
+<ul>
+<li><strong>Paloma reuse.</strong> Accordion, Carousel, Alert, Badge, Button, Link, Text and other
+Paloma components are already built, tested, and on-brand. Rebuilding them in Glimmer would
+duplicate effort and diverge from the design system.</li>
+<li><strong>The 1 MB limit is solvable.</strong> It is a per-<em>file</em> constraint, not a
+total-size wall. Rollup chunk splitting (already configured) divides output into multiple
+ES-module chunks, each under 1 MB, uploaded as separate theme assets. Import Paloma by subpath
+rather than via a barrel to keep chunks lean.</li>
+<li><strong>Stable integration boundary.</strong> A single Glimmer parent plus one React root
+mounts after the element exists and unmounts on teardown, so route transitions stay clean.
+Discourse-specific concerns stay in Glimmer; React only receives prepared props.</li>
+</ul>
+
+<h3>Action Item for the Paloma Team</h3>
+
+<p>
+Inform the Paloma team that <strong>forums.ea.com</strong> will now be a consumer of Paloma
+components. This has concrete implications they should plan for:
+</p>
+
+<ul>
+<li><strong>Bundle-size sensitivity:</strong> Paloma is consumed inside a Discourse theme bound by
+a 1 MB per-file limit. Prefer per-component subpath exports and tree-shakable ES modules; avoid
+heavy barrel entry points.</li>
+<li><strong>CSS delivery:</strong> forums.ea.com injects Paloma styles via an inline
+<code>?inline</code> import (not a global stylesheet). Keep component CSS self-contained and
+side-effect-free.</li>
+<li><strong>Runtime assumptions:</strong> components run inside a host Ember app, mounted through
+<code>createRoot</code> into a Discourse-owned element. Avoid assumptions about owning
+<code>document</code>, global providers, or a dedicated React router.</li>
+<li><strong>Versioning &amp; peer deps:</strong> React/ReactDOM peer versions and Node engine
+requirements must stay compatible with the theme's Vite build.</li>
+<li><strong>Coordination:</strong> breaking changes to exports, CSS class names, or peer versions
+should be communicated, since forums.ea.com ships them to end users.</li>
+</ul>
+
+<h3>Guardrails When Proceeding with React</h3>
+
+<ul>
+<li>Keep exactly one Glimmer parent block and one React root for the homepage.</li>
+<li>Prepare data in the Glimmer parent / shared service; pass props into React.</li>
+<li>Import Paloma by subpath; never barrel-import the whole library.</li>
+<li>Check every generated file size before starting the Theme CLI watcher.</li>
+<li>Before a PR: run <code>npm run build:react</code> and <code>git diff --check</code>, then test
+a fresh load and a route transition with the console open.</li>
+</ul>
+
+</body>
+</html>
