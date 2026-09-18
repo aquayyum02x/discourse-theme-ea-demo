@@ -1,0 +1,13 @@
+# Build output — never commit a theme artifact
+*.zip
+
+# Local tooling
+node_modules/
+.DS_Store
+
+# Internal planning docs — reference EA-internal infrastructure, keep out of the public remote
+docs/*
+!docs/explainer.md
+
+# Machine-specific local helper
+sync-local.sh

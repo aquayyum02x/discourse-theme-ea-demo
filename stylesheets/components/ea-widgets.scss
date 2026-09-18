@@ -1,0 +1,230 @@
+.ea-quests {
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--ea-space-400);
+    margin-bottom: var(--ea-space-400);
+  }
+
+  &__heading {
+    margin: 0;
+    color: var(--ea-content-bold);
+    font-family: var(--ea-font-display);
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 28px;
+  }
+
+  // Stacked-card effect from the design: two offset layers behind the active quest.
+  &__card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--ea-space-400);
+    padding: var(--ea-space-400);
+    border-radius: var(--ea-radius-lg);
+    background: linear-gradient(
+      160deg,
+      var(--ea-bg-glow),
+      color-mix(in srgb, var(--ea-bg-glow) 45%, #01081d)
+    );
+
+    &::before,
+    &::after {
+      position: absolute;
+      z-index: -1;
+      border-radius: var(--ea-radius-lg);
+      background: color-mix(in srgb, var(--ea-bg-glow) 45%, transparent);
+      content: "";
+    }
+
+    &::before {
+      inset: 8px -8px -8px 8px;
+      opacity: 0.6;
+    }
+
+    &::after {
+      inset: 16px -16px -16px 16px;
+      opacity: 0.3;
+    }
+  }
+
+  &__media {
+    display: block;
+    overflow: hidden;
+    border-radius: var(--ea-radius-md);
+
+    img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+    }
+  }
+
+  &__body {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--ea-space-300);
+  }
+
+  &__icon {
+    flex: 0 0 auto;
+    overflow: hidden;
+    width: 48px;
+    height: 48px;
+    border-radius: var(--ea-radius-md);
+    background: rgb(255 255 255 / 0.12);
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__text {
+    min-width: 0;
+  }
+
+  &__title {
+    margin: 0;
+    color: #fff;
+    font-family: var(--ea-font-text);
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+  }
+
+  &__reward {
+    margin: var(--ea-space-100) 0 0;
+    color: rgb(255 255 255 / 0.75);
+    font-family: var(--ea-font-text);
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  &__cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 48px;
+    border-radius: var(--ea-radius-full);
+    color: #fff;
+    background: #0f0f0f;
+    font-family: var(--ea-font-text);
+    font-size: 16px;
+    font-weight: 700;
+    text-decoration: none;
+
+    &:hover,
+    &:focus-visible {
+      color: #fff;
+      background: #000;
+    }
+  }
+
+  &__dots {
+    display: flex;
+    justify-content: center;
+    gap: var(--ea-space-200);
+    margin-top: var(--ea-space-600);
+  }
+
+  &__dot {
+    width: 8px;
+    height: 8px;
+    padding: 0;
+    border: none;
+    border-radius: var(--ea-radius-full);
+    background: var(--ea-border-subtle);
+    cursor: pointer;
+
+    &.--active {
+      width: 24px;
+      background: var(--ea-content-bold);
+    }
+  }
+}
+
+.ea-heroes {
+  padding: var(--ea-space-600);
+  border: 1px solid var(--ea-border-subtle);
+  border-radius: var(--ea-radius-lg);
+  background: var(--ea-surface-l1);
+
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: var(--ea-space-300);
+    margin-bottom: var(--ea-space-400);
+
+    .d-icon {
+      width: 20px;
+      height: 20px;
+      color: var(--ea-content-bold);
+    }
+  }
+
+  &__heading {
+    margin: 0;
+    color: var(--ea-content-bold);
+    font-family: var(--ea-font-display);
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 28px;
+  }
+
+  &__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__item + &__item {
+    border-top: 1px solid var(--ea-border-minimal);
+  }
+
+  &__link {
+    display: flex;
+    align-items: center;
+    gap: var(--ea-space-300);
+    padding: var(--ea-space-300) 0;
+    text-decoration: none;
+
+    &:hover .ea-heroes__name,
+    &:focus-visible .ea-heroes__name {
+      color: var(--ea-content-highlight);
+    }
+  }
+
+  &__avatar {
+    flex: 0 0 auto;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--ea-radius-full);
+    object-fit: cover;
+  }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  &__name {
+    color: var(--ea-content-bold);
+    font-family: var(--ea-font-text);
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+  }
+
+  &__count {
+    color: var(--ea-content-subtle);
+    font-family: var(--ea-font-text);
+    font-size: 14px;
+    line-height: 20px;
+  }
+}

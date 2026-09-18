@@ -1,7 +1,7 @@
 import Service from "@ember/service";
 import { tracked } from "@glimmer/tracking";
 
-const API_URL = "https://dummyjson.com/c/afab-800c-4a06-a378";
+const REQUEST_TIMEOUT_MS = 10000;
 
 // Parent-level context: fetched once and shared by every block/component that injects this service.
 export default class EaHelpData extends Service {
@@ -11,14 +11,35 @@ export default class EaHelpData extends Service {
 
   loadPromise;
 
+  // https only, so an admin typo cannot downgrade the request or point it at another scheme.
+  get endpoint() {
+    const configured = (settings.ea_help_data_endpoint || "").trim();
+    return configured.startsWith("https://") ? configured : null;
+  }
+
+  get isConfigured() {
+    return Boolean(this.endpoint);
+  }
+
   load() {
     if (this.loadPromise) {
       return this.loadPromise;
     }
 
-    this.isLoading = true;
+    const endpoint = this.endpoint;
 
-    this.loadPromise = fetch(API_URL)
+    if (!endpoint) {
+      this.loadPromise = Promise.resolve();
+      return this.loadPromise;
+    }
+
+    this.isLoading = true;
+    this.hasError = false;
+
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
+
+    this.loadPromise = fetch(endpoint, { signal: controller.signal })
       .then((response) => {
         if (!response.ok) {
           throw new Error(`Request failed with status ${response.status}`);
@@ -34,6 +55,7 @@ export default class EaHelpData extends Service {
         console.error("Failed to load EA Help data", error);
       })
       .finally(() => {
+        clearTimeout(timeoutId);
         this.isLoading = false;
       });
 
