@@ -11,3 +11,7 @@ docs/*
 
 # Machine-specific local helper
 sync-local.sh
+
+# Never commit registry credentials
+.npmrc
+node_modules/
