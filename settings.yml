@@ -3,6 +3,146 @@ show_breadcrumbs:
   default: true
   refresh: true
 
+side_nav_enabled:
+  type: bool
+  default: true
+  refresh: true
+
+side_nav_icon_rail:
+  type: bool
+  default: true
+  refresh: true
+
+side_nav_hide_default_sections:
+  type: bool
+  default: true
+  refresh: true
+
+side_nav_games:
+  type: objects
+  default: []
+  schema:
+    name: game
+    properties:
+      title:
+        type: string
+        required: true
+        validations:
+          min_length: 1
+          max_length: 100
+      image:
+        type: string
+      category:
+        type: categories
+        validations:
+          max: 1
+      link:
+        type: string
+
+footer_enabled:
+  type: bool
+  default: true
+
+footer_links:
+  type: objects
+  default:
+    - column: "Company"
+      text: "EA App"
+      url: "https://www.ea.com/ea-app"
+    - column: "Company"
+      text: "About"
+      url: "https://www.ea.com/about"
+    - column: "Company"
+      text: "Accessibility"
+      url: "https://www.ea.com/accessibility"
+    - column: "Company"
+      text: "Jobs"
+      url: "https://www.ea.com/careers"
+    - column: "Company"
+      text: "Security"
+      url: "https://www.ea.com/security"
+    - column: "Community & Support"
+      text: "Answers HQ"
+      url: "https://answers.ea.com"
+    - column: "Community & Support"
+      text: "How to Contact EA Help"
+      url: "https://help.ea.com"
+    - column: "Community & Support"
+      text: "Online Services Updates"
+      url: "https://www.ea.com/service-updates"
+    - column: "Community & Support"
+      text: "EA Forums"
+      url: "/"
+    - column: "Legal"
+      text: "Legal & Privacy"
+      url: "https://www.ea.com/legal"
+    - column: "Legal"
+      text: "User Agreement"
+      url: "https://www.ea.com/terms-of-service"
+    - column: "Legal"
+      text: "Privacy & Cookie Policy"
+      url: "https://www.ea.com/legal/privacy-and-cookie-policy"
+    - column: "Legal"
+      text: "Cookie Preferences"
+      url: "#"
+  schema:
+    name: link
+    properties:
+      column:
+        type: string
+        required: true
+        validations:
+          min_length: 1
+          max_length: 60
+      text:
+        type: string
+        required: true
+        validations:
+          min_length: 1
+          max_length: 80
+      url:
+        type: string
+
+footer_social:
+  type: objects
+  default:
+    - icon: "fab-youtube"
+      label: "YouTube"
+      url: "https://www.youtube.com/ea"
+    - icon: "fab-x-twitter"
+      label: "X"
+      url: "https://x.com/ea"
+    - icon: "fab-facebook"
+      label: "Facebook"
+      url: "https://www.facebook.com/EA"
+    - icon: "fab-instagram"
+      label: "Instagram"
+      url: "https://www.instagram.com/ea"
+    - icon: "fab-twitch"
+      label: "Twitch"
+      url: "https://www.twitch.tv/ea"
+  schema:
+    name: social
+    properties:
+      icon:
+        type: string
+        required: true
+      label:
+        type: string
+        required: true
+      url:
+        type: string
+
+footer_locale_label:
+  default: "English (US)"
+
+footer_copyright:
+  default: "© 2026 Electronic Arts Inc."
+
+ea_help_data_endpoint:
+  default: ""
+  description: "HTTPS endpoint returning the EA Help section payload. Leave empty to use settings-authored content only."
+
 category_sections:
   type: objects
   default:
@@ -62,9 +202,12 @@ stat_slider_display_stats:
           max: 1
       image:
         type: string
+      owned:
+        type: boolean
+        default: false
 
 stat_slider_title:
-  default: "Community pulse"
+  default: "Based on your Profile"
 
 stat_slider_background_color:
   default: "var(--primary-very-low)"
@@ -104,6 +247,10 @@ announcements:
           max_length: 150
       subtitle:
         type: string
+      meta:
+        type: string
+      icon:
+        type: string
       size:
         type: enum
         default: small
@@ -121,3 +268,59 @@ announcements_heading:
 announcements_shuffle:
   type: bool
   default: false
+
+recommended_max:
+  type: integer
+  default: 5
+  min: 1
+  max: 12
+
+recommended_tag:
+  default: ""
+
+recommended_see_all_url:
+  default: "/latest"
+
+trending_max:
+  type: integer
+  default: 10
+  min: 1
+  max: 30
+
+community_heroes_max:
+  type: integer
+  default: 5
+  min: 1
+  max: 20
+
+community_heroes_period:
+  type: enum
+  default: monthly
+  choices:
+    - daily
+    - weekly
+    - monthly
+    - quarterly
+    - yearly
+    - all
+
+quests:
+  type: objects
+  default: []
+  schema:
+    name: quest
+    properties:
+      title:
+        type: string
+        required: true
+        validations:
+          min_length: 1
+          max_length: 150
+      reward:
+        type: string
+      image:
+        type: string
+      icon:
+        type: string
+      link:
+        type: string

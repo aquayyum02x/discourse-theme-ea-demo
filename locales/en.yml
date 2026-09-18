@@ -3,6 +3,16 @@ en:
     description: "EA Forums demo theme"
     settings:
       show_breadcrumbs: "Show a breadcrumb bar below the header on category, topic, and other inner pages."
+      side_nav_enabled: "Add the EA quick links and game shortcuts to the Discourse sidebar."
+      side_nav_icon_rail: "Render the sidebar as the narrow 92px EA icon rail on desktop. Labels stay available as tooltips and to screen readers."
+      side_nav_hide_default_sections: "Hide Discourse's default Community, Categories, and Tags sidebar sections so only the EA rail is shown."
+      side_nav_games: "Game shortcuts in the side navigation. Each entry has a title, artwork, and either a category or an explicit link."
+      footer_enabled: "Show the EA footer."
+      footer_links: "Footer links. Entries sharing the same \"column\" value are grouped into one column, in the order listed."
+      footer_social: "Social links in the footer bar. \"icon\" must be an icon declared in about.json, such as fab-youtube."
+      footer_locale_label: "Label shown on the footer language button. Leave empty to hide it."
+      footer_copyright: "Copyright line shown at the bottom right of the footer."
+      ea_help_data_endpoint: "HTTPS endpoint returning the EA Help section payload used by the game slider. Must start with https://. Leave empty to fall back to settings-authored cards."
       category_sections: "Titled sections of categories (e.g. \"Trending Games\"). Each section has a heading, the categories to feature, an optional initial count before \"Show all\", and a \"compact\" toggle (large cards vs. a compact horizontal stack of boxes)."
       featured_tag: "Topics with this tag are listed in the Featured Content sidebar box."
       featured_content_max: "Maximum number of topics to show in the Featured Content box."
@@ -17,12 +27,85 @@ en:
       announcements: "Announcement cards. Each card has a title, an optional subtitle, an optional image, an optional link, and a size (\"big\" or \"small\") controlling how it's rendered in the grid."
       announcements_heading: "Heading shown above the announcement cards."
       announcements_shuffle: "Shuffle the display order of the announcement cards on every page load instead of using the authored order."
+      recommended_max: "Number of tiles in the \"Recommended For You\" row."
+      recommended_tag: "Optional tag used to source the recommended topics. Leave empty to use the latest topics."
+      recommended_see_all_url: "Destination for the \"See All\" link."
+      trending_max: "Number of discussions listed under \"Trending Discussions\"."
+      community_heroes_max: "Number of members shown in the Community Heroes widget."
+      community_heroes_period: "Directory period used to rank Community Heroes."
+      quests: "Quest cards shown beside the trending discussions. Each quest has a title, an optional reward line, artwork, an icon, and a link for the call to action."
   breadcrumbs:
     home: "EA Forums"
     admin: "Admin"
+  side_nav:
+    quick_links: "EA Forums"
+    games: "Your games"
+    home: "Home"
+    latest: "Latest"
+    bookmarks: "Bookmarks"
+    profile: "Profile"
+    messages: "Messages"
+  footer:
+    social: "EA on social media"
   category_search:
     placeholder: "Search %{category}"
   homepage:
+    solved: "Solved"
+    stats:
+      likes:
+        one: "%{count} like"
+        other: "%{count} likes"
+      replies:
+        one: "%{count} reply"
+        other: "%{count} replies"
+      views:
+        one: "%{count} view"
+        other: "%{count} views"
+    recommended:
+      heading: "Recommended For You"
+      see_all: "See All"
+      loading: "Loading recommendations…"
+      error: "We couldn't load recommendations right now."
+      empty: "No recommendations yet."
+    trending:
+      heading: "Trending Discussions"
+      filters: "Filters"
+      filters_label: "Filter discussions"
+      view_label: "Change layout"
+      loading: "Loading discussions…"
+      error: "We couldn't load discussions right now."
+      empty: "No discussions to show."
+      filter:
+        trending: "Trending"
+        recent: "Most recent"
+        replies: "Most Replies"
+        solutions: "Solutions"
+        unsolved: "Unsolved"
+      view:
+        card: "Card"
+        compact: "Compact"
+      col:
+        topic: "Topic"
+        author: "Author"
+        replies: "Replies"
+        views: "Views"
+        activity: "Activity"
+    quests:
+      heading: "Quests"
+      accept: "Accept Quest"
+      previous: "Previous quest"
+      next: "Next quest"
+    heroes:
+      heading: "Community Heroes"
+      contributions:
+        one: "%{count} Contribution"
+        other: "%{count} Contributions"
+    stat_slider:
+      previous: "Previous games"
+      next: "Next games"
+      loading: "Loading games…"
+      error: "We couldn't load this section right now."
+      owned: "Owned"
     categories:
       heading: "Categories"
       show_all: "Show all"

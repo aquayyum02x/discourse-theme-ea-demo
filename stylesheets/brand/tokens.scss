@@ -1,0 +1,222 @@
+// Paloma design tokens from the EA Forums Figma library, expressed as theme CSS variables.
+// The EA homepage sections always sit on the dark brand gradient (see brand/colors.scss), so
+// these are the dark-surface values in both colour schemes. A true light mode needs light-mode
+// token values from design first — see docs/open-questions.md Q-1.
+
+:root {
+  // Background
+  --ea-bg-base: #01081d;
+  --ea-bg-glow: #093dd8;
+
+  // Surface
+  --ea-surface-container: rgb(15 15 15 / 0.06);
+  --ea-surface-l1: rgb(31 31 31 / 0.12);
+  --ea-surface-l2: rgb(61 61 61 / 0.16);
+  --ea-surface-overlay: rgb(0 0 0 / 0.97);
+  --ea-surface-inverse: rgb(255 255 255 / 0.97);
+  --ea-surface-positive: #58bc34;
+  --ea-surface-highlight-subtle: rgb(211 221 253 / 0.1);
+
+  // Content
+  --ea-content-bold: rgb(255 255 255 / 0.97);
+  --ea-content-regular: rgb(255 255 255 / 0.75);
+  --ea-content-subtle: rgb(255 255 255 / 0.5);
+  --ea-content-highlight: #7b9afa;
+  --ea-content-inverse: #0f0f0f;
+
+  // Border
+  --ea-border-subtle: rgb(255 255 255 / 0.1);
+  --ea-border-minimal: rgb(255 255 255 / 0.05);
+  --ea-border-highlight: #7b9afa;
+
+  // Radius
+  --ea-radius-xs: 4px;
+  --ea-radius-sm: 8px;
+  --ea-radius-md: 12px;
+  --ea-radius-lg: 16px;
+  --ea-radius-full: 9999px;
+
+  // Spacing
+  --ea-space-100: 4px;
+  --ea-space-150: 6px;
+  --ea-space-200: 8px;
+  --ea-space-300: 12px;
+  --ea-space-400: 16px;
+  --ea-space-500: 20px;
+  --ea-space-600: 24px;
+  --ea-space-800: 32px;
+  --ea-space-1000: 40px;
+
+  // Grid
+  --ea-container-max: 1440px;
+  --ea-page-margin: 24px;
+  --ea-gutter: 16px;
+
+  // Type — falls back to the Discourse stack until EA web fonts are licensed (Q-11)
+  --ea-font-display: "Electronic Arts Display", var(--font-family);
+  --ea-font-text: "Electronic Arts Text", var(--font-family);
+}
+
+// Shared section primitives used by every EA homepage block.
+.ea-section {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: var(--ea-container-max);
+  // Each block renders inside its own outlet wrapper, so sibling selectors cannot space them.
+  margin: var(--ea-space-1000) auto 0;
+  padding-inline: var(--ea-page-margin);
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--ea-space-400);
+    min-height: 36px;
+    margin-bottom: var(--ea-space-600);
+  }
+
+  &__heading {
+    display: flex;
+    align-items: center;
+    gap: var(--ea-space-200);
+    margin: 0;
+    color: var(--ea-content-bold);
+    font-family: var(--ea-font-display);
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 36px;
+
+    .d-icon {
+      width: 24px;
+      height: 24px;
+      color: var(--ea-content-bold);
+    }
+  }
+
+  &__action {
+    flex: 0 0 auto;
+    color: var(--ea-content-bold);
+    font-family: var(--ea-font-text);
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+    text-decoration: none;
+
+    &:hover,
+    &:focus-visible {
+      color: var(--ea-content-highlight);
+      text-decoration: underline;
+    }
+  }
+
+  &__status {
+    margin: 0;
+    padding: var(--ea-space-400) 0;
+    color: var(--ea-content-subtle);
+    font-family: var(--ea-font-text);
+    font-size: 14px;
+
+    &[data-state="error"] {
+      color: var(--danger);
+    }
+  }
+
+  &.--empty {
+    display: none;
+  }
+}
+
+// Circular previous/next control used by the carousels.
+.ea-carousel-nav {
+  display: flex;
+  flex: 0 0 auto;
+  gap: var(--ea-space-200);
+
+  &__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border: none;
+    border-radius: var(--ea-radius-full);
+    color: var(--ea-content-bold);
+    background: transparent;
+    cursor: pointer;
+
+    .d-icon {
+      width: 20px;
+      height: 20px;
+    }
+
+    &:hover:not(:disabled),
+    &:focus-visible:not(:disabled) {
+      background: var(--ea-surface-l2);
+    }
+
+    &:disabled {
+      opacity: 0.3;
+      cursor: default;
+    }
+  }
+}
+
+// Views / likes / replies pills.
+.ea-stat-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ea-space-200);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  &__item {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--ea-space-150);
+    height: 32px;
+    padding-inline: var(--ea-space-300);
+    border: 1px solid var(--ea-border-subtle);
+    border-radius: var(--ea-radius-full);
+    color: var(--ea-content-regular);
+    font-family: var(--ea-font-text);
+    font-size: 12px;
+    line-height: 16px;
+
+    .d-icon {
+      width: 14px;
+      height: 14px;
+      color: var(--ea-content-subtle);
+    }
+  }
+}
+
+// "Solved" and tag pills.
+.ea-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ea-space-100);
+  height: 32px;
+  padding-inline: var(--ea-space-300);
+  border: 1px solid var(--ea-border-minimal);
+  border-radius: var(--ea-radius-full);
+  color: var(--ea-content-regular);
+  background: var(--ea-surface-l2);
+  font-family: var(--ea-font-text);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 16px;
+  white-space: nowrap;
+
+  .d-icon {
+    width: 14px;
+    height: 14px;
+  }
+
+  &.--solved {
+    border-color: transparent;
+    color: #0f0f0f;
+    background: var(--ea-surface-positive);
+  }
+}
