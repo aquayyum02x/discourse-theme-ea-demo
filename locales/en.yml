@@ -8,12 +8,19 @@ en:
       side_nav_hide_default_sections: "Hide Discourse's default Community, Categories, and Tags sidebar sections so only the EA rail is shown."
       side_nav_games: "Game shortcuts in the side navigation. Each entry has a title, artwork, and either a category or an explicit link."
       footer_enabled: "Show the EA footer."
-      footer_links: "Footer links. Entries sharing the same \"column\" value are grouped into one column, in the order listed."
-      footer_social: "Social links in the footer bar. \"icon\" must be an icon declared in about.json, such as fab-youtube."
+      footer_links: 'Footer links. Entries sharing the same "column" value are grouped into one column, in the order listed.'
+      footer_social: 'Social links in the footer bar. "icon" must be an icon declared in about.json, such as fab-youtube.'
       footer_locale_label: "Label shown on the footer language button. Leave empty to hide it."
       footer_copyright: "Copyright line shown at the bottom right of the footer."
+      apex_category_slug: "Slug of the category rendered as the Apex Legends game hub."
+      apex_hero_eyebrow: "Small label displayed above the Apex Legends category name."
+      apex_hero_image: "Optional wide hero image for the Apex Legends category page."
+      apex_description: "Fallback Apex Legends introduction when the category has no description."
+      apex_featured_tag: "Tag used to select featured Apex Legends topics."
+      apex_featured_max: "Maximum number of featured topics on the Apex Legends hub."
+      apex_important_links: "Important links shown beside the Apex Legends featured places."
       ea_help_data_endpoint: "HTTPS endpoint returning the EA Help section payload used by the game slider. Must start with https://. Leave empty to fall back to settings-authored cards."
-      category_sections: "Titled sections of categories (e.g. \"Trending Games\"). Each section has a heading, the categories to feature, an optional initial count before \"Show all\", and a \"compact\" toggle (large cards vs. a compact horizontal stack of boxes)."
+      category_sections: 'Titled sections of categories (e.g. "Trending Games"). Each section has a heading, the categories to feature, an optional initial count before "Show all", and a "compact" toggle (large cards vs. a compact horizontal stack of boxes).'
       featured_tag: "Topics with this tag are listed in the Featured Content sidebar box."
       featured_content_max: "Maximum number of topics to show in the Featured Content box."
       about_title: "Heading for the About sidebar box."
@@ -24,13 +31,13 @@ en:
       stat_slider_text_color: "Text color for the slider (Discourse color variable or hex value)."
       stat_slider_accent_color: "Accent color used on the stat cards and controls."
       stat_slider_card_width: "Width of each stat card, such as 12em or 180px."
-      announcements: "Announcement cards. Each card has a title, an optional subtitle, an optional image, an optional link, and a size (\"big\" or \"small\") controlling how it's rendered in the grid."
+      announcements: 'Announcement cards. Each card has a title, an optional subtitle, an optional image, an optional link, and a size ("big" or "small") controlling how it''s rendered in the grid.'
       announcements_heading: "Heading shown above the announcement cards."
       announcements_shuffle: "Shuffle the display order of the announcement cards on every page load instead of using the authored order."
-      recommended_max: "Number of tiles in the \"Recommended For You\" row."
+      recommended_max: 'Number of tiles in the "Recommended For You" row.'
       recommended_tag: "Optional tag used to source the recommended topics. Leave empty to use the latest topics."
-      recommended_see_all_url: "Destination for the \"See All\" link."
-      trending_max: "Number of discussions listed under \"Trending Discussions\"."
+      recommended_see_all_url: 'Destination for the "See All" link.'
+      trending_max: 'Number of discussions listed under "Trending Discussions".'
       community_heroes_max: "Number of members shown in the Community Heroes widget."
       community_heroes_period: "Directory period used to rank Community Heroes."
       quests: "Quest cards shown beside the trending discussions. Each quest has a title, an optional reward line, artwork, an icon, and a link for the call to action."
@@ -49,6 +56,23 @@ en:
     social: "EA on social media"
   category_search:
     placeholder: "Search %{category}"
+  apex:
+    search_placeholder: "Search Apex Legends"
+    search_label: "Search the Apex Legends community"
+    start_discussion: "Start a discussion"
+    featured: "Featured Content"
+    places: "Featured Places"
+    important_links: "Important Links"
+    topics: "Topics"
+    posts: "Posts"
+    replies: "replies"
+    views: "views"
+    loading: "Loading featured content…"
+    error: "We couldn't load featured content right now."
+    no_featured: "Featured topics will appear here after staff add the configured tag."
+    community_eyebrow: "Apex Legends"
+    community_heading: "Recent Community Content"
+    community_description: "Browse the newest conversations, answers, and reports from the community."
   homepage:
     solved: "Solved"
     stats:
@@ -133,3 +157,5 @@ en:
       see_all: "See all"
     events:
       heading: "Upcoming Events"
+  news_feed:
+    heading: "Latest News"

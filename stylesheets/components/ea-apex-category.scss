@@ -1,0 +1,313 @@
+.ea-apex-category {
+  .category-heading,
+  #header-list-area {
+    display: none;
+  }
+
+  .discovery-list-controls-above-outlet {
+    margin: 0;
+  }
+
+  .list-controls .container,
+  .list-container {
+    max-width: 1440px;
+  }
+
+  .category-navigation {
+    margin-top: var(--space-6);
+  }
+}
+
+.ea-apex-category-page {
+  width: 100%;
+}
+
+.ea-apex-hub {
+  width: 100%;
+  color: var(--ea-content-regular, var(--primary));
+}
+
+.ea-apex-hero {
+  position: relative;
+  min-height: 430px;
+  overflow: hidden;
+  isolation: isolate;
+  background:
+    radial-gradient(circle at 80% 20%, rgb(255 85 32 / 0.45), transparent 34%),
+    linear-gradient(120deg, #150c2c 0%, #501b32 55%, #d7492f 100%);
+  background-position: center;
+  background-size: cover;
+
+  &__scrim {
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    background: linear-gradient(90deg, rgb(1 8 29 / 0.94) 0%, rgb(1 8 29 / 0.7) 48%, rgb(1 8 29 / 0.15) 100%);
+  }
+
+  &__content {
+    box-sizing: border-box;
+    width: min(100%, 1440px);
+    min-height: 430px;
+    margin: 0 auto;
+    padding: 64px 32px 32px;
+  }
+
+  &__identity {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    width: min(760px, 100%);
+  }
+
+  &__logo {
+    width: 96px;
+    height: 96px;
+    flex: 0 0 auto;
+    border-radius: 18px;
+    object-fit: contain;
+    background: rgb(255 255 255 / 0.94);
+    padding: 8px;
+  }
+
+  &__eyebrow,
+  &__description {
+    margin: 0;
+    color: rgb(255 255 255 / 0.82);
+  }
+
+  &__eyebrow {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    margin: 8px 0 12px;
+    color: #fff;
+    font-family: var(--ea-font-display);
+    font-size: clamp(40px, 5vw, 72px);
+    line-height: 1;
+  }
+
+  &__description {
+    max-width: 650px;
+    font-size: 18px;
+    line-height: 1.55;
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    justify-content: space-between;
+    width: min(760px, 100%);
+    margin-top: 34px;
+  }
+
+  &__counts {
+    display: flex;
+    gap: 24px;
+
+    span {
+      display: flex;
+      flex-direction: column;
+      color: rgb(255 255 255 / 0.7);
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+
+    strong {
+      color: #fff;
+      font-size: 20px;
+      line-height: 1.2;
+    }
+  }
+}
+
+.ea-apex-search {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  width: min(760px, 100%);
+  min-height: 56px;
+  margin-top: 32px;
+  padding: 0 8px 0 20px;
+  border: 1px solid rgb(255 255 255 / 0.32);
+  border-radius: 16px;
+  background: rgb(1 8 29 / 0.55);
+  backdrop-filter: blur(18px);
+
+  > svg {
+    width: 20px;
+    color: #fff;
+  }
+
+  input {
+    width: 100%;
+    height: 54px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    box-shadow: none;
+    color: #fff;
+
+    &::placeholder { color: rgb(255 255 255 / 0.68); }
+  }
+
+  button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border: 0;
+    border-radius: 12px;
+    background: #ff522f;
+    color: #fff;
+    cursor: pointer;
+  }
+}
+
+.ea-apex-hub__content {
+  box-sizing: border-box;
+  width: min(100%, 1440px);
+  margin: 0 auto;
+  padding: 40px 32px 8px;
+}
+
+.ea-apex-section {
+  margin-bottom: 40px;
+
+  &__heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 16px;
+
+    p, h2 { margin: 0; }
+    p { color: var(--ea-content-subtle); font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+    h2 { color: var(--ea-content-bold); font-family: var(--ea-font-display); font-size: 28px; line-height: 36px; }
+    > svg { width: 24px; height: 24px; }
+  }
+}
+
+.ea-apex-featured__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.ea-apex-featured-card {
+  overflow: hidden;
+  border: 1px solid var(--ea-border-subtle, var(--primary-low));
+  border-radius: 16px;
+  background: var(--ea-surface-container, var(--secondary));
+  padding: 8px;
+
+  &__link { display: block; color: inherit; text-decoration: none; }
+  &__media { display: block; overflow: hidden; aspect-ratio: 16 / 9; border-radius: 10px; background: var(--ea-surface-l2, var(--primary-very-low)); }
+  &__media img { width: 100%; height: 100%; object-fit: cover; transition: transform 180ms ease; }
+  &__placeholder { display: flex; width: 100%; height: 100%; align-items: center; justify-content: center; background: radial-gradient(circle at 72% 28%, rgb(255 105 55 / .72), transparent 24%), linear-gradient(135deg, #100b27, #71243c 58%, #d7492f); color: rgb(255 255 255 / .9); font-family: var(--ea-font-display); font-size: clamp(42px, 6vw, 84px); font-weight: 800; }
+  &:hover &__media img { transform: scale(1.035); }
+  &__body { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; padding: 12px 8px 8px; }
+  &__body strong { color: var(--ea-content-bold); font-size: 16px; line-height: 1.35; }
+  &__body small { color: var(--ea-content-subtle); }
+  &__stats { display: flex; flex-wrap: wrap; gap: 4px; }
+}
+
+.ea-apex-hub__columns {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr);
+  gap: 24px;
+}
+
+.ea-apex-places ul,
+.ea-apex-links ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ea-apex-places ul {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.ea-apex-place {
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 14px;
+  min-height: 72px;
+  padding: 14px;
+  border: 1px solid var(--ea-border-subtle, var(--primary-low));
+  border-radius: 14px;
+  background: var(--ea-surface-container, var(--secondary));
+  color: inherit;
+  text-decoration: none;
+
+  &:hover { border-color: var(--ea-content-highlight, var(--tertiary)); }
+  &__icon { display: inline-flex; align-items: center; justify-content: center; width: 52px; height: 52px; overflow: hidden; border-radius: 12px; background: #d7492f; color: #fff; font-size: 22px; font-weight: 800; }
+  &__icon img { width: 100%; height: 100%; object-fit: cover; }
+  &__copy { display: flex; min-width: 0; flex-direction: column; gap: 3px; }
+  &__copy strong { color: var(--ea-content-bold); font-size: 15px; }
+  &__copy small { overflow: hidden; color: var(--ea-content-subtle); text-overflow: ellipsis; white-space: nowrap; }
+  &__count { color: var(--ea-content-subtle); font-size: 13px; }
+}
+
+.ea-apex-links {
+  padding: 20px;
+  border: 1px solid var(--ea-border-subtle, var(--primary-low));
+  border-radius: 16px;
+  background: var(--ea-surface-container, var(--secondary));
+
+  li + li { border-top: 1px solid var(--ea-border-minimal, var(--primary-low)); }
+  a { display: block; padding: 14px 0; color: var(--ea-content-bold); font-weight: 700; text-decoration: none; }
+  a:hover { color: var(--ea-content-highlight, var(--tertiary)); }
+}
+
+.ea-apex-status {
+  margin: 0;
+  padding: 24px;
+  border-radius: 14px;
+  background: var(--ea-surface-container, var(--secondary));
+  color: var(--ea-content-subtle);
+
+  &.--error { color: var(--danger); }
+}
+
+.ea-apex-topic-list-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin: 24px 0 16px;
+
+  p, h2 { margin: 0; }
+  > div > p { color: var(--ea-content-subtle); font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+  h2 { color: var(--ea-content-bold); font-family: var(--ea-font-display); font-size: 28px; }
+  > p { max-width: 520px; color: var(--ea-content-subtle); text-align: right; }
+}
+
+@media (width <= 1000px) {
+  .ea-apex-featured__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ea-apex-hub__columns { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (width <= 700px) {
+  .ea-apex-hero__content, .ea-apex-hub__content { padding-inline: 16px; }
+  .ea-apex-hero__content { padding-top: 40px; }
+  .ea-apex-hero__identity { flex-direction: column; }
+  .ea-apex-hero__logo { width: 72px; height: 72px; }
+  .ea-apex-hero__footer { align-items: flex-start; flex-direction: column; }
+  .ea-apex-featured__grid, .ea-apex-places ul { grid-template-columns: minmax(0, 1fr); }
+  .ea-apex-topic-list-heading { align-items: flex-start; flex-direction: column; }
+  .ea-apex-topic-list-heading > p { text-align: left; }
+}

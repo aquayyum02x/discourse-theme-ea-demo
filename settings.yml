@@ -8,6 +8,32 @@ side_nav_enabled:
   default: true
   refresh: true
 
+news_feed_enabled:
+  type: bool
+  default: true
+  refresh: true
+
+news_feed_items:
+  type: objects
+  default:
+    - title: "Apex Legends community update"
+      summary: "Read the latest news from the Apex Legends community."
+      url: "/c/apex-legends/5"
+      date: "September 19, 2026"
+  schema:
+    name: news_item
+    properties:
+      title:
+        type: string
+        required: true
+      summary:
+        type: string
+      url:
+        type: string
+        required: true
+      date:
+        type: string
+
 side_nav_icon_rail:
   type: bool
   default: true
@@ -138,6 +164,49 @@ footer_locale_label:
 
 footer_copyright:
   default: "© 2026 Electronic Arts Inc."
+
+apex_category_slug:
+  default: "apex-legends"
+  description: "Slug of the Discourse category that receives the Apex Legends game-hub layout."
+
+apex_hero_eyebrow:
+  default: "Apex Legends Community"
+
+apex_hero_image:
+  type: upload
+  default: ""
+
+apex_description:
+  default: "Join the Apex Legends community to discuss the game, share feedback, get help, and report issues."
+  textarea: true
+
+apex_featured_tag:
+  default: "featured"
+
+apex_featured_max:
+  type: integer
+  default: 4
+  min: 1
+  max: 8
+
+apex_important_links:
+  type: objects
+  default:
+    - text: "Apex Legends official site"
+      url: "https://www.ea.com/games/apex-legends"
+    - text: "EA Help for Apex Legends"
+      url: "https://help.ea.com/help-top-issues/?product=apex-legends"
+    - text: "Apex Legends status"
+      url: "https://help.ea.com/help/faq/are-ea-servers-down/"
+  schema:
+    name: link
+    properties:
+      text:
+        type: string
+        required: true
+      url:
+        type: string
+        required: true
 
 ea_help_data_endpoint:
   default: ""

@@ -26,6 +26,10 @@ export default apiInitializer((api) => {
       "ea-gradient",
       discovery.custom || !!discovery.category
     );
+    root.classList.toggle(
+      "ea-apex-category",
+      category?.slug === (settings.apex_category_slug || "apex-legends")
+    );
 
     if (color === currentColor) {
       return;

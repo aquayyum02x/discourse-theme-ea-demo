@@ -8,6 +8,7 @@ node_modules/
 # Internal planning docs — reference EA-internal infrastructure, keep out of the public remote
 docs/*
 !docs/explainer.md
+!docs/paloma-css-pipeline.md
 
 # Machine-specific local helper
 sync-local.sh
@@ -15,3 +16,6 @@ sync-local.sh
 # Never commit registry credentials
 .npmrc
 node_modules/
+
+.jira-token
+.confluence-token

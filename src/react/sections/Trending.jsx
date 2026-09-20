@@ -3,13 +3,14 @@ import {
   Avatar,
   Badge,
   Button,
-  Carousel,
   Chip,
   SegmentedControl,
   SegmentedControlOption,
   SegmentedControlOptionList,
 } from "@paloma/core-ui";
 import {
+  ArrowLeftIcon,
+  ArrowRightIcon,
   DashboardGridIcon,
   FilterSlidersHorizontalIcon,
   FireIcon,
@@ -20,58 +21,34 @@ import {
 import { StatPills } from "./Recommended";
 
 function Quests({ quests = [], labels }) {
+  // Hooks must run before any early return, or React throws once quests load in.
+  const [activeQuest, setActiveQuest] = useState(0);
+
   if (!quests.length) {
     return null;
   }
 
-  // Paloma's Carousel asserts 2-5 items, so anything outside that range renders as a plain list.
-  const useCarousel = quests.length >= 2 && quests.length <= 5;
-  const cards = quests.map((quest, i) => (
-    <article key={i} className="ea-r-quest">
-      {quest.image && (
-        <img
-          className="ea-r-quest__art"
-          src={quest.image}
-          alt=""
-          loading="lazy"
-        />
-      )}
-      <div className="ea-r-quest__body">
-        {quest.icon && (
-          <img className="ea-r-quest__icon" src={quest.icon} alt="" />
-        )}
-        <div>
-          <p className="ea-r-quest__title">{quest.title}</p>
-          {quest.reward && (
-            <p className="ea-r-quest__reward">{quest.reward}</p>
-          )}
-        </div>
-      </div>
-      <Button
-        variant="inverse"
-        size="large"
-        onClick={() => quest.link && (window.location.href = quest.link)}
-      >
-        {labels.questsAccept}
-      </Button>
-    </article>
-  ));
+  const index = Math.min(activeQuest, quests.length - 1);
+  const quest = quests[index];
+  const previous = () =>
+    setActiveQuest((i) => (i - 1 + quests.length) % quests.length);
+  const next = () => setActiveQuest((i) => (i + 1) % quests.length);
 
   return (
     <section className="ea-r-quests">
-      <h3 className="ea-r-widget-heading">{labels.questsHeading}</h3>
-      {useCarousel ? (
-        <Carousel
-          arrows
-          dots
-          backArrowLabel={labels.questsPrevious}
-          forwardArrowLabel={labels.questsNext}
-        >
-          {cards}
-        </Carousel>
-      ) : (
-        cards
-      )}
+      <div className="ea-r-widget-heading"><h3>{labels.questsHeading}</h3>{quests.length > 1 ? <div className="ea-r-quest__nav"><button type="button" aria-label={labels.questsPrevious} onClick={previous}><ArrowLeftIcon /></button><button type="button" aria-label={labels.questsNext} onClick={next}><ArrowRightIcon /></button></div> : null}</div>
+      <article className="ea-r-quest">
+        {quest.image ? <img className="ea-r-quest__art" src={quest.image} alt="" loading="lazy" /> : null}
+        <div className="ea-r-quest__scrim" />
+        <div className="ea-r-quest__content">
+          <div className="ea-r-quest__body">
+            {quest.icon ? <img className="ea-r-quest__icon" src={quest.icon} alt="" /> : null}
+            <div><p className="ea-r-quest__title">{quest.title}</p>{quest.reward ? <p className="ea-r-quest__reward">{quest.reward}</p> : null}</div>
+          </div>
+          <Button variant="inverse" size="large" onClick={() => quest.link && (window.location.href = quest.link)}>{labels.questsAccept}</Button>
+        </div>
+      </article>
+      {quests.length > 1 ? <div className="ea-r-quest__dots" aria-hidden="true">{quests.map((_, i) => <span className={i === index ? "is-active" : ""} key={i} />)}</div> : null}
     </section>
   );
 }
@@ -133,7 +110,10 @@ export default function Trending({
         <TrendUpIcon />
       </h2>
 
-      <div className="ea-r-trending__controls">
+      {/* controls / threads / widgets are grid siblings so each breakpoint can reorder them:
+          desktop threads+widgets side by side, tablet widgets first, mobile widgets last. */}
+      <div className="ea-r-trending__layout">
+        <div className="ea-r-trending__controls">
         <div className="ea-r-trending__filters">
           <span className="ea-r-trending__filters-label">
             <FilterSlidersHorizontalIcon />
@@ -158,16 +138,15 @@ export default function Trending({
               id="card"
               leadingIcon={<DashboardGridIcon />}
             >
-              {labels.viewCard}
+              <span className="ea-r-segmented-label">{labels.viewCard}</span>
             </SegmentedControlOption>
             <SegmentedControlOption id="compact" leadingIcon={<ListIcon />}>
-              {labels.viewCompact}
+              <span className="ea-r-segmented-label">{labels.viewCompact}</span>
             </SegmentedControlOption>
           </SegmentedControlOptionList>
         </SegmentedControl>
-      </div>
+        </div>
 
-      <div className="ea-r-trending__body">
         <div className="ea-r-trending__threads">
           {loading && <p className="ea-r-status">{labels.loading}</p>}
           {error && !loading && (
