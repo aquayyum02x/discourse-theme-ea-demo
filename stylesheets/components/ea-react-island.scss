@@ -122,3 +122,9 @@
   .ea-r-table { display: block; overflow-x: auto; }
   .ea-r-game { width: 180px; }
 }
+
+// Paloma's ThemeProvider renders a wrapper element around every section. Taking
+// it out of layout keeps the island's own flex/grid contract intact.
+.ea-react-island > [data-paloma-mode] {
+  display: contents;
+}

@@ -44,6 +44,8 @@ en:
   breadcrumbs:
     home: "EA Forums"
     admin: "Admin"
+    label: "Breadcrumb"
+    more: "Show more breadcrumbs"
   side_nav:
     quick_links: "EA Forums"
     games: "Your games"
@@ -56,6 +58,18 @@ en:
     social: "EA on social media"
   category_search:
     placeholder: "Search %{category}"
+  header_search:
+    placeholder: "Search for trending topics"
+    placeholder_scoped: "Search for trending topics in %{category}"
+    open: "Open search"
+    close: "Close search"
+    suggestions: "Search suggestions"
+    recent: "Recent Searches"
+    trending: "Trending Discussions"
+    results: "Results"
+    loading: "Searching…"
+    empty: "No results for “%{term}”"
+    see_all: "See all results for “%{term}”"
   apex:
     search_placeholder: "Search Apex Legends"
     search_label: "Search the Apex Legends community"

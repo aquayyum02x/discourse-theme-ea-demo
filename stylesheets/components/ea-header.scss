@@ -1,0 +1,212 @@
+// EA Forums Header — additive styling for the custom header rendered in before-header-panel.
+// This component sits above Discourse's native header bar and is only visible on the homepage.
+
+.ea-header {
+  background: var(--ea-header-solid);
+  color: var(--header_primary);
+  border-bottom: 1px solid var(--ea-border);
+
+  &__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: var(--ea-container-max);
+    margin: 0 auto;
+    padding-inline: var(--ea-page-margin);
+    height: 56px;
+  }
+
+  &__brand {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  &__logo {
+    display: flex;
+    align-items: center;
+    gap: var(--ea-space-200);
+    color: var(--header_primary);
+    text-decoration: none;
+    font-family: var(--ea-font-display);
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1;
+
+    .d-icon {
+      width: 20px;
+      height: 20px;
+      color: var(--header_primary);
+    }
+
+    &:hover,
+    &:focus-visible {
+      color: var(--ea-content-highlight);
+    }
+  }
+
+  &__brand-text {
+    white-space: nowrap;
+  }
+
+  &__nav {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-inline: var(--ea-space-800);
+  }
+
+  &__dropdown {
+    position: relative;
+  }
+
+  &__dropdown-trigger {
+    display: flex;
+    align-items: center;
+    gap: var(--ea-space-150);
+    padding: var(--ea-space-200) var(--ea-space-400);
+    border: 1px solid var(--ea-border-subtle);
+    border-radius: var(--ea-radius-sm);
+    background: transparent;
+    color: var(--header_primary);
+    font-family: var(--ea-font-text);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: border-color 0.15s ease;
+
+    .d-icon {
+      width: 16px;
+      height: 16px;
+      color: var(--header_primary);
+      transition: transform 0.15s ease;
+    }
+
+    &:hover,
+    &:focus-visible {
+      border-color: var(--ea-border-highlight);
+    }
+
+    &:hover .d-icon {
+      transform: rotate(180deg);
+    }
+  }
+
+  &__dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    min-width: 220px;
+    margin-top: var(--ea-space-100);
+    background: var(--ea-surface-overlay);
+    border: 1px solid var(--ea-border-subtle);
+    border-radius: var(--ea-radius-sm);
+    box-shadow: 0 8px 24px rgb(0 0 0 / 0.3);
+    padding: var(--ea-space-100) 0;
+  }
+
+  &__dropdown-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-height: 400px;
+    overflow-y: auto;
+  }
+
+  &__dropdown-item {
+    &:not(:last-child) {
+      border-bottom: 1px solid var(--ea-border-minimal);
+    }
+  }
+
+  &__dropdown-link {
+    display: block;
+    padding: var(--ea-space-200) var(--ea-space-400);
+    color: var(--header_primary);
+    text-decoration: none;
+    font-size: 14px;
+
+    &:hover,
+    &:focus-visible {
+      background: var(--ea-surface-l1);
+      color: var(--ea-content-highlight);
+    }
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--ea-space-400);
+    flex-shrink: 0;
+  }
+
+  &__action {
+    display: flex;
+    align-items: center;
+    gap: var(--ea-space-150);
+    color: var(--header_primary);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.15s ease;
+
+    &:hover,
+    &:focus-visible {
+      color: var(--ea-content-highlight);
+    }
+
+    &--icon {
+      padding: var(--ea-space-100);
+
+      .d-icon {
+        width: 18px;
+        height: 18px;
+      }
+    }
+
+    &--text {
+      padding: var(--ea-space-100) var(--ea-space-200);
+      border: 1px solid var(--ea-border-subtle);
+      border-radius: var(--ea-radius-full);
+    }
+
+    &--signin {
+      display: flex;
+      align-items: center;
+      gap: var(--ea-space-150);
+      padding: var(--ea-space-200) var(--ea-space-400);
+      background: var(--header_primary);
+      color: var(--ea-header-solid);
+      border-radius: var(--ea-radius-full);
+      font-weight: 600;
+
+      .d-icon {
+        width: 16px;
+        height: 16px;
+        color: var(--ea-header-solid);
+      }
+
+      &:hover,
+      &:focus-visible {
+        background: var(--ea-content-highlight);
+        color: var(--header_primary);
+
+        .d-icon {
+          color: var(--header_primary);
+        }
+      }
+    }
+  }
+}
+
+// Responsive: hide the dropdown on mobile to avoid overflow
+@media (max-width: 768px) {
+  .ea-header__nav {
+    display: none;
+  }
+
+  .ea-header__inner {
+    height: 48px;
+  }
+}

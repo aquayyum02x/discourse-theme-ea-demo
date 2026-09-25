@@ -66,13 +66,15 @@
       "house",
       "lightbulb",
       "list",
+      "magnifying-glass",
       "reply",
       "sliders",
       "table-cells-large",
       "trophy",
       "user",
       "users",
-      "book"
+      "book",
+      "xmark"
     ],
     "custom_homepage": true
   },

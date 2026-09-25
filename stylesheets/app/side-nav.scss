@@ -1,119 +1,110 @@
 // EA side-nav rail.
 //
-// Content comes from `api.addSidebarSection` (documented API). This file only restyles
-// Discourse's own sidebar into the 92px icon rail from the design. The rail is desktop-only:
-// the tablet and mobile Figma frames have no rail, and Discourse turns the sidebar into a
-// drawer at those widths. See docs/open-questions.md Q-3.
+// Content is a React/Paloma island rendered into Discourse's `after-sidebar-sections`
+// outlet. This file sizes Discourse's sidebar shell down to the 108px rail from the
+// design and styles the island inside it. The rail is desktop-only: the tablet and
+// mobile Figma frames have no rail, and Discourse turns the sidebar into a drawer at
+// those widths. See docs/open-questions.md Q-3.
 
 @media (width >= 1024px) {
   html.ea-side-nav-rail {
-    --d-sidebar-width: 92px;
-    // Core derives the prefix box and its image from this; 46 - 2px border = the 44px design tile.
-    --d-sidebar-section-link-prefix-width: 46px;
+    --d-sidebar-width: 108px;
 
     .sidebar-container {
       padding-inline: 0;
-      border-right: 1px solid var(--ea-border-minimal);
-      background: var(--ea-bg-base);
+      border-right: 1px solid rgb(255 255 255 / 0.1);
+      background: #01081d;
     }
 
     .sidebar-sections {
       padding-inline: 0;
     }
-
-    .sidebar-section {
-      margin-bottom: var(--ea-space-300);
-    }
-
-    // Headers carry no meaning once the rail is icon-only; the links keep their own labels.
-    .sidebar-section-header {
-      display: none;
-    }
-
-    .sidebar-section-content {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: var(--ea-space-200);
-      padding: 0;
-    }
-
-    .sidebar-section-link-wrapper {
-      width: 100%;
-    }
-
-    .sidebar-section-link {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      height: 52px;
-      padding: 0;
-      border-radius: var(--ea-radius-md);
-      background: transparent;
-
-      &:hover,
-      &:focus-visible {
-        background: var(--ea-surface-l2);
-      }
-    }
-
-    .sidebar-section-link-content-text,
-    .sidebar-section-link-content-badge,
-    .sidebar-section-link-suffix {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      overflow: hidden;
-      clip-path: inset(50%);
-      white-space: nowrap;
-    }
-
-    .sidebar-section-link-prefix {
-      margin: 0;
-
-      &.icon .d-icon {
-        width: 24px;
-        height: 24px;
-        color: var(--ea-content-bold);
-      }
-
-      // Game box art renders as a rounded tile rather than core's circular avatar treatment.
-      &.image .prefix-image {
-        aspect-ratio: 1 / 1;
-        border-radius: var(--ea-radius-sm);
-        object-fit: cover;
-      }
-    }
-
-    // Games sit below a divider, matching the rail in the design.
-    .sidebar-section[data-section-name="ea-games"] {
-      padding-top: var(--ea-space-300);
-      border-top: 1px solid var(--ea-border-minimal);
-    }
-
-    .sidebar-section-link[data-link-name="ea-messages"] {
-      width: 52px;
-      margin-inline: auto;
-      border-radius: var(--ea-radius-full);
-      background: var(--tertiary);
-
-      .d-icon {
-        color: #fff;
-      }
-
-      &:hover,
-      &:focus-visible {
-        background: color-mix(in srgb, var(--tertiary) 82%, #fff);
-      }
-    }
   }
 
   html.ea-side-nav-hide-default {
-    .sidebar-section[data-section-name="community"],
-    .sidebar-section[data-section-name="categories"],
-    .sidebar-section[data-section-name="tags"] {
+    .sidebar-sections > .sidebar-section {
       display: none;
+    }
+  }
+}
+
+.ea-side-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 16px 12px;
+
+  &__group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  hr {
+    width: 100%;
+    margin-block: 16px;
+  }
+
+  &__item,
+  &__game {
+    display: grid;
+    place-items: center;
+    color: rgb(255 255 255 / 0.97);
+    text-decoration: none;
+    background: transparent;
+
+    &:hover,
+    &:focus-visible {
+      background: rgb(255 255 255 / 0.08);
+    }
+
+    &.is-active {
+      background: rgb(255 255 255 / 0.12);
+    }
+  }
+
+  // 56 x 56 with a 24px glyph, per the Figma rail item.
+  &__item {
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  // 68px box around a 44px tile, per the Figma game item.
+  &__game {
+    width: 68px;
+    height: 68px;
+    border-radius: 12px;
+  }
+
+  &__art {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    object-fit: cover;
+    border-radius: 8px;
+
+    &--fallback {
+      color: rgb(255 255 255 / 0.75);
+      background: rgb(255 255 255 / 0.12);
+
+      svg {
+        width: 20px;
+        height: 20px;
+      }
     }
   }
 }

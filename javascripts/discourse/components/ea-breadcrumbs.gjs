@@ -1,8 +1,7 @@
 import Component from "@glimmer/component";
 import { service } from "@ember/service";
-// eslint-disable-next-line discourse/ui-kit-imports -- ui-kit paths not yet present in targeted Discourse (<= 2026.4); use stable path
-import icon from "discourse/helpers/d-icon";
 import { i18n } from "discourse-i18n";
+import EaReactIsland from "./ea-react-island";
 
 export default class EaBreadcrumbs extends Component {
   @service router;
@@ -148,34 +147,21 @@ export default class EaBreadcrumbs extends Component {
     return !this.discovery.custom && this.breadcrumbs.length >= 1;
   }
 
+  get islandProps() {
+    return {
+      crumbs: this.breadcrumbs.map((crumb) => ({
+        label: crumb.label,
+        url: crumb.url,
+        isActive: Boolean(crumb.isActive),
+      })),
+      label: i18n(themePrefix("breadcrumbs.label")),
+      moreLabel: i18n(themePrefix("breadcrumbs.more")),
+    };
+  }
+
   <template>
     {{#if this.shouldRender}}
-      <nav class="ea-breadcrumbs" aria-label="Breadcrumb">
-        <ol class="ea-breadcrumbs__inner">
-          {{#each this.breadcrumbs as |crumb|}}
-            <li
-              class="ea-breadcrumbs__item
-                {{if crumb.isActive '--active'}}
-                {{if crumb.isCategory '--category'}}"
-            >
-              <span class="ea-breadcrumbs__separator" aria-hidden="true">
-                {{icon "chevron-right"}}
-              </span>
-              {{#if crumb.isActive}}
-                <span class="ea-breadcrumbs__current" aria-current="page">
-                  {{crumb.label}}
-                </span>
-              {{else if crumb.url}}
-                <a href={{crumb.url}} class="ea-breadcrumbs__link">
-                  {{crumb.label}}
-                </a>
-              {{else}}
-                <span class="ea-breadcrumbs__link">{{crumb.label}}</span>
-              {{/if}}
-            </li>
-          {{/each}}
-        </ol>
-      </nav>
+      <EaReactIsland @section="breadcrumbs" @props={{this.islandProps}} />
     {{/if}}
   </template>
 }
