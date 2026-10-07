@@ -3,6 +3,24 @@ show_breadcrumbs:
   default: true
   refresh: true
 
+# Demo: header navigation ("EA Help", "Browse by Topic")
+header_nav_enabled:
+  type: bool
+  default: true
+  refresh: true
+
+header_nav_help_label:
+  default: "EA Help"
+
+header_nav_help_url:
+  default: "https://help.ea.com"
+
+header_nav_browse_label:
+  default: "Browse by Topic"
+
+header_nav_browse_url:
+  default: "/categories"
+
 category_sections:
   type: objects
   default:

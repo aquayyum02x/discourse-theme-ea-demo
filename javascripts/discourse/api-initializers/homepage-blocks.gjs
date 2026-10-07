@@ -1,10 +1,14 @@
 import { apiInitializer } from "discourse/lib/api";
 import BlockAnnouncements from "../blocks/block-announcements";
-import BlockStatSlider from "../blocks/block-stat-slider";
 
+// ─────────────────────────────────────────────────────────────────────────────
+// DEMO: register just the announcements block on the homepage.
+//
+// api.renderBlocks tells Discourse "put this block into the homepage-blocks
+// slot." We register only announcements here to keep the demo focused.
+// ─────────────────────────────────────────────────────────────────────────────
 export default apiInitializer((api) => {
   api.renderBlocks("homepage-blocks", [
-    { block: BlockStatSlider, id: "ea-stat-slider" }, // help by games — rendered first (higher up)
-    { block: BlockAnnouncements, id: "ea-announcements" }, // rendered after, lower on the page
+    { block: BlockAnnouncements, id: "ea-announcements" },
   ]);
 });

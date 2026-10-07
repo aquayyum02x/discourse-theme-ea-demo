@@ -4,5 +4,7 @@
 @import "block-sidebar";
 @import "block-leaderboard";
 @import "block-upcoming-events";
-@import "block-stat-slider";
+// DEMO: stat-slider styles are incomplete on this base branch (references an
+// undefined variable), so we omit them. The demo only needs announcements.
+// @import "block-stat-slider";
 @import "block-announcements";

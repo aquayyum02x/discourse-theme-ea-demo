@@ -1,0 +1,45 @@
+// ─────────────────────────────────────────────────────────────────────────────
+// DEMO: styles for the header navigation pills (components/header-nav.gjs)
+//
+// Plain SCSS. `&` refers to the parent selector, and we use CSS variables so the
+// colors stay consistent with the dark EA theme. Nothing here is magic.
+// ─────────────────────────────────────────────────────────────────────────────
+
+.demo-header-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  &__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: 40px;
+    padding-inline: 16px;
+    border-radius: 9999px; // fully-round pill
+    color: var(--header_primary);
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1;
+    text-decoration: none;
+    white-space: nowrap;
+
+    .d-icon {
+      width: 16px;
+      height: 16px;
+    }
+
+    &:hover,
+    &:focus-visible {
+      background: rgb(255 255 255 / 0.12);
+    }
+  }
+}
+
+// On small screens the pills take too much room — hide them; the mobile menu
+// already covers navigation.
+@media (width < 768px) {
+  .demo-header-nav {
+    display: none;
+  }
+}
