@@ -1,17 +1,6 @@
-// "Based on your Profile" — horizontal box-art carousel.
+// "Based on your Profile" — horizontal box-art carousel built on the
+// EA UI kit carousel (ea/ui/carousel) and media card (ea/ui/media-card).
 .block-stat-slider {
-  &__viewport {
-    overflow-x: auto;
-    scrollbar-width: none;
-    scroll-behavior: smooth;
-    overscroll-behavior-inline: contain;
-    scroll-snap-type: x mandatory;
-
-    &::-webkit-scrollbar {
-      display: none;
-    }
-  }
-
   &__list {
     display: flex;
     gap: var(--ea-space-400);
@@ -27,14 +16,17 @@
     scroll-snap-align: start;
   }
 
-  &__card {
-    display: flex;
-    flex-direction: column;
-    gap: var(--ea-space-300);
-    text-decoration: none;
+  // Portrait box-art instead of the library default 16/9.
+  .ea-media-card__media {
+    aspect-ratio: 236 / 345;
+    border-radius: var(--ea-radius-md);
+  }
 
-    &:hover .block-stat-slider__media,
-    &:focus-visible .block-stat-slider__media {
+  &__card {
+    gap: var(--ea-space-300);
+
+    &:hover .ea-media-card__media,
+    &:focus-visible .ea-media-card__media {
       outline: 2px solid var(--ea-border-highlight);
       outline-offset: 2px;
     }
@@ -43,37 +35,6 @@
     &:focus-visible .block-stat-slider__label {
       color: var(--ea-content-highlight);
     }
-  }
-
-  &__media {
-    position: relative;
-    display: block;
-    aspect-ratio: 236 / 345;
-    overflow: hidden;
-    border-radius: var(--ea-radius-md);
-    background: var(--ea-surface-l2);
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-  }
-
-  &__owned {
-    position: absolute;
-    bottom: var(--ea-space-300);
-    left: 50%;
-    padding: var(--ea-space-150) var(--ea-space-300);
-    transform: translateX(-50%);
-    border-radius: var(--ea-radius-full);
-    color: var(--ea-content-inverse);
-    background: var(--ea-surface-inverse);
-    font-family: var(--ea-font-text);
-    font-size: 12px;
-    font-weight: 700;
-    line-height: 16px;
-    white-space: nowrap;
   }
 
   &__label {

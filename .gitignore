@@ -11,3 +11,8 @@ docs/*
 
 # Machine-specific local helper
 sync-local.sh
+
+# Local credentials — never commit tokens or registry auth
+.npmrc
+.jira-token
+.confluence-token

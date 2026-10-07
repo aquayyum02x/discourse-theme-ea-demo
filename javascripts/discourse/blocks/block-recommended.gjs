@@ -5,9 +5,12 @@ import { block } from "discourse/blocks";
 // eslint-disable-next-line discourse/ui-kit-imports -- ui-kit paths not yet present in targeted Discourse (<= 2026.4); use stable path
 import AsyncContent from "discourse/components/async-content";
 import { bind } from "discourse/lib/decorators";
-import icon from "discourse/helpers/d-icon";
 import { i18n } from "discourse-i18n";
-import EaStatPills from "../components/ea-stat-pills";
+import EaBadge from "../components/ea/ui/badge";
+import EaMediaCard from "../components/ea/ui/media-card";
+import EaSectionHeader from "../components/ea/ui/section-header";
+import EaStatPills from "../components/ea/ui/stat-pills";
+import EaStatus from "../components/ea/ui/status";
 
 @block("theme:ea-demo:recommended", {
   description:
@@ -57,26 +60,27 @@ export default class BlockRecommended extends Component {
 
   <template>
     <section class="ea-section block-recommended">
-      <header class="ea-section__header">
-        <h2 class="ea-section__heading">
-          {{i18n (themePrefix "homepage.recommended.heading")}}
-          {{icon "lightbulb"}}
-        </h2>
-        <a class="ea-section__action" href={{this.seeAllUrl}}>
-          {{i18n (themePrefix "homepage.recommended.see_all")}}
-        </a>
-      </header>
+      <EaSectionHeader
+        @title={{i18n (themePrefix "homepage.recommended.heading")}}
+        @iconAfter="lightbulb"
+      >
+        <:trailing>
+          <a class="ea-section__action" href={{this.seeAllUrl}}>
+            {{i18n (themePrefix "homepage.recommended.see_all")}}
+          </a>
+        </:trailing>
+      </EaSectionHeader>
 
       <AsyncContent @asyncData={{this.loadTopics}}>
         <:loading>
-          <p class="ea-section__status" data-state="loading">
+          <EaStatus @state="loading">
             {{i18n (themePrefix "homepage.recommended.loading")}}
-          </p>
+          </EaStatus>
         </:loading>
         <:error>
-          <p class="ea-section__status" data-state="error">
+          <EaStatus @state="error">
             {{i18n (themePrefix "homepage.recommended.error")}}
-          </p>
+          </EaStatus>
         </:error>
         <:content as |topics|>
           {{#if topics.length}}
@@ -84,39 +88,31 @@ export default class BlockRecommended extends Component {
               {{#each topics as |topic|}}
                 <li class="block-recommended__item">
                   <article class="block-recommended__tile">
-                    <a
-                      class="block-recommended__media"
-                      href={{topic.url}}
-                      tabindex="-1"
-                      aria-hidden="true"
+                    <EaMediaCard
+                      @mediaHref={{topic.url}}
+                      @image={{topic.image}}
+                      @placeholder={{true}}
                     >
-                      {{#if topic.image}}
-                        <img
-                          class="block-recommended__image"
-                          src={{topic.image}}
-                          alt=""
-                          loading="lazy"
-                        />
-                      {{else}}
-                        <span class="block-recommended__placeholder"></span>
-                      {{/if}}
+                      <:overlay>
+                        {{#if topic.solved}}
+                          <EaBadge
+                            @variant="solved"
+                            @icon="check"
+                            class="block-recommended__solved"
+                          >
+                            {{i18n (themePrefix "homepage.solved")}}
+                          </EaBadge>
+                        {{/if}}
 
-                      {{#if topic.solved}}
-                        <span class="ea-badge --solved
-                            block-recommended__solved">
-                          {{icon "check"}}
-                          {{i18n (themePrefix "homepage.solved")}}
-                        </span>
-                      {{/if}}
-
-                      {{#if topic.categoryName}}
-                        <span class="block-recommended__overlay">
-                          <span class="block-recommended__category">
-                            {{topic.categoryName}}
+                        {{#if topic.categoryName}}
+                          <span class="block-recommended__overlay">
+                            <span class="block-recommended__category">
+                              {{topic.categoryName}}
+                            </span>
                           </span>
-                        </span>
-                      {{/if}}
-                    </a>
+                        {{/if}}
+                      </:overlay>
+                    </EaMediaCard>
 
                     <div class="block-recommended__body">
                       <h3 class="block-recommended__title">
@@ -136,9 +132,9 @@ export default class BlockRecommended extends Component {
               {{/each}}
             </ul>
           {{else}}
-            <p class="ea-section__status">
+            <EaStatus>
               {{i18n (themePrefix "homepage.recommended.empty")}}
-            </p>
+            </EaStatus>
           {{/if}}
         </:content>
       </AsyncContent>

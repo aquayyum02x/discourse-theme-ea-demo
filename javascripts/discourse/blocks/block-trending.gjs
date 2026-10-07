@@ -14,7 +14,10 @@ import icon from "discourse/helpers/d-icon";
 import number from "discourse/helpers/number";
 import ageWithTooltip from "discourse/helpers/age-with-tooltip";
 import { i18n } from "discourse-i18n";
-import EaStatPills from "../components/ea-stat-pills";
+import EaBadge from "../components/ea/ui/badge";
+import EaSectionHeader from "../components/ea/ui/section-header";
+import EaStatPills from "../components/ea/ui/stat-pills";
+import EaStatus from "../components/ea/ui/status";
 import EaQuests from "../components/ea-quests";
 import EaCommunityHeroes from "../components/ea-community-heroes";
 
@@ -85,12 +88,10 @@ export default class BlockTrending extends Component {
 
   <template>
     <section class="ea-section block-trending">
-      <header class="ea-section__header">
-        <h2 class="ea-section__heading">
-          {{i18n (themePrefix "homepage.trending.heading")}}
-          {{icon "arrow-trend-up"}}
-        </h2>
-      </header>
+      <EaSectionHeader
+        @title={{i18n (themePrefix "homepage.trending.heading")}}
+        @iconAfter="arrow-trend-up"
+      />
 
       <div class="block-trending__controls">
         <div class="block-trending__filters" role="group" aria-label={{i18n (themePrefix "homepage.trending.filters_label")}}>
@@ -137,14 +138,14 @@ export default class BlockTrending extends Component {
             @context={{this.activeFilter}}
           >
             <:loading>
-              <p class="ea-section__status" data-state="loading">
+              <EaStatus @state="loading">
                 {{i18n (themePrefix "homepage.trending.loading")}}
-              </p>
+              </EaStatus>
             </:loading>
             <:error>
-              <p class="ea-section__status" data-state="error">
+              <EaStatus @state="error">
                 {{i18n (themePrefix "homepage.trending.error")}}
-              </p>
+              </EaStatus>
             </:error>
             <:content as |topics|>
               {{#if topics.length}}
@@ -167,13 +168,12 @@ export default class BlockTrending extends Component {
                         {{#if (or topic.solved topic.tags.length)}}
                           <p class="block-trending__badges">
                             {{#if topic.solved}}
-                              <span class="ea-badge --solved">
-                                {{icon "check"}}
+                              <EaBadge @variant="solved" @icon="check">
                                 {{i18n (themePrefix "homepage.solved")}}
-                              </span>
+                              </EaBadge>
                             {{/if}}
                             {{#each topic.tags as |tag|}}
-                              <span class="ea-badge">{{tag}}</span>
+                              <EaBadge>{{tag}}</EaBadge>
                             {{/each}}
                           </p>
                         {{/if}}
@@ -241,9 +241,9 @@ export default class BlockTrending extends Component {
                   </table>
                 {{/if}}
               {{else}}
-                <p class="ea-section__status">
+                <EaStatus>
                   {{i18n (themePrefix "homepage.trending.empty")}}
-                </p>
+                </EaStatus>
               {{/if}}
             </:content>
           </AsyncContent>

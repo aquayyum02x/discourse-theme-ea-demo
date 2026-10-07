@@ -4,7 +4,8 @@ import icon from "discourse/helpers/d-icon";
 import { i18n } from "discourse-i18n";
 import number from "discourse/helpers/number";
 
-// Views / likes / replies pills shared by the recommended and trending cards.
+// EA UI kit — views / likes / replies pills shared by the recommended and
+// trending cards. Pills with an undefined count are skipped.
 export default class EaStatPills extends Component {
   get pills() {
     return [

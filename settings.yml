@@ -3,6 +3,41 @@ show_breadcrumbs:
   default: true
   refresh: true
 
+header_nav_enabled:
+  type: bool
+  default: true
+  refresh: true
+
+header_nav_help_label:
+  default: "EA Help"
+
+header_nav_help_url:
+  default: "https://help.ea.com"
+
+header_nav_browse_label:
+  default: "Browse by Topic"
+
+header_nav_browse_url:
+  default: "/categories"
+
+header_search_enabled:
+  type: bool
+  default: true
+  refresh: true
+
+header_search_placeholder:
+  default: "Search EA Forums"
+
+notifications_panel_enabled:
+  type: bool
+  default: true
+  refresh: true
+
+side_nav_permanent:
+  type: bool
+  default: true
+  refresh: true
+
 side_nav_enabled:
   type: bool
   default: true

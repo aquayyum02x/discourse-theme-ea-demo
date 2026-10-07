@@ -1,50 +1,37 @@
 import Component from "@glimmer/component";
 import { htmlSafe } from "@ember/template";
 import { block } from "discourse/blocks";
-import icon from "discourse/helpers/d-icon";
+import EaMediaCard from "../components/ea/ui/media-card";
+import EaSectionHeader from "../components/ea/ui/section-header";
 
-const CardBody = <template>
-  {{#if @card.image}}
-    <span class="block-announcements__media">
-      <img
-        class="block-announcements__image"
-        src={{@card.image}}
-        alt=""
-        loading="lazy"
-      />
-    </span>
-  {{/if}}
-  <span class="block-announcements__body">
-    {{#if @card.icon}}
-      <span class="block-announcements__avatar">
-        <img src={{@card.icon}} alt="" loading="lazy" />
-      </span>
-    {{/if}}
-    <span class="block-announcements__text">
-      {{#if @card.subtitle}}
-        <span class="block-announcements__subtitle">{{@card.subtitle}}</span>
-      {{/if}}
-      <span class="block-announcements__title">{{@card.title}}</span>
-      {{#if @card.meta}}
-        <span class="block-announcements__meta">{{@card.meta}}</span>
-      {{/if}}
-    </span>
-  </span>
-</template>;
-
+// Announcement card: EA UI kit media card with the announcement body
+// (avatar, subtitle, title, meta) slotted in.
 const AnnouncementCard = <template>
-  {{#if @card.link}}
-    <a
-      class="block-announcements__card {{if @featured '--featured'}}"
-      href={{@card.link}}
-    >
-      <CardBody @card={{@card}} />
-    </a>
-  {{else}}
-    <div class="block-announcements__card {{if @featured '--featured'}}">
-      <CardBody @card={{@card}} />
-    </div>
-  {{/if}}
+  <EaMediaCard
+    @href={{@card.link}}
+    @image={{@card.image}}
+    @featured={{@featured}}
+    class="block-announcements__card"
+  >
+    <:body>
+      <span class="block-announcements__body">
+        {{#if @card.icon}}
+          <span class="block-announcements__avatar">
+            <img src={{@card.icon}} alt="" loading="lazy" />
+          </span>
+        {{/if}}
+        <span class="block-announcements__text">
+          {{#if @card.subtitle}}
+            <span class="block-announcements__subtitle">{{@card.subtitle}}</span>
+          {{/if}}
+          <span class="block-announcements__title">{{@card.title}}</span>
+          {{#if @card.meta}}
+            <span class="block-announcements__meta">{{@card.meta}}</span>
+          {{/if}}
+        </span>
+      </span>
+    </:body>
+  </EaMediaCard>
 </template>;
 
 @block("theme:ea-demo:announcements", {
@@ -106,12 +93,10 @@ export default class BlockAnnouncements extends Component {
     {{#if this.cards.length}}
       <section class="ea-section block-announcements">
         {{#if settings.announcements_heading}}
-          <header class="ea-section__header">
-            <h2 class="ea-section__heading">
-              {{icon "bullhorn"}}
-              {{htmlSafe settings.announcements_heading}}
-            </h2>
-          </header>
+          <EaSectionHeader
+            @title={{htmlSafe settings.announcements_heading}}
+            @iconBefore="bullhorn"
+          />
         {{/if}}
 
         <div class="block-announcements__grid">

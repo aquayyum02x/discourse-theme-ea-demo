@@ -14,3 +14,14 @@ html.ea-gradient {
   padding-left: 2.5em !important;
 }
 
+// The header's inner wrap must span the full viewport on mobile so the search
+// pill, menu button and user icons fit — the 1800px cap + 2.5em side padding
+// would otherwise crush the header contents to a sliver.
+@media (width < 1024px) {
+  .d-header .wrap {
+    max-width: 100% !important;
+    padding-right: var(--ea-space-400) !important;
+    padding-left: var(--ea-space-400) !important;
+  }
+}
+

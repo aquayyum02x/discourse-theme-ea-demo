@@ -4,6 +4,10 @@
   box-shadow: none;
   transition: box-shadow 0.25s ease;
 
+  // Figma 1257:102078 — 88px bar, subtle bottom border.
+  height: 88px;
+  border-bottom: 1px solid var(--ea-border-subtle);
+
    &::before {
     content: "";
     position: absolute;
@@ -17,6 +21,29 @@
   > * {
     position: relative;
     z-index: 1;
+  }
+
+  .wrap {
+    max-width: 100%;
+    padding-inline: var(--ea-space-400);
+  }
+
+  .contents {
+    display: flex;
+    align-items: center;
+    // Figma 1257:102078: logo → 40px → nav; the search bar centers itself via
+    // the stretched before-header-panel outlet.
+    gap: var(--ea-space-600);
+    height: 88px;
+  }
+
+  // Logo block sits flush left; with the hamburger hidden (permanent rail) it
+  // is the first element, matching the design.
+  .home-logo-wrapper-outlet,
+  .title {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
   }
 
   .d-icon,
@@ -47,6 +74,301 @@
       color: var(--primary);
     }
   }
+
+  // Right-hand panel: icons and auth. The stretched before-header-panel outlet
+  // (EA nav pills + search bar) pushes it to the right edge.
+  .panel {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    gap: var(--ea-space-400);
+    min-width: 0;
+  }
+
+  // --- Auth: white Sign-In / Log In pill, ghost Sign Up ---
+  .auth-buttons {
+    display: flex;
+    align-items: center;
+    gap: var(--ea-space-200);
+
+    .btn {
+      height: 48px;
+      padding-inline: var(--ea-space-500);
+      border-radius: var(--ea-radius-full);
+      font-family: var(--ea-font-text);
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 24px;
+    }
+
+    .login-button {
+      color: var(--ea-content-inverse);
+      background: var(--ea-surface-inverse);
+
+      &:hover,
+      &:focus-visible {
+        color: var(--ea-content-inverse);
+        background: #fff;
+      }
+    }
+
+    .sign-up-button {
+      color: var(--ea-content-bold);
+      background: transparent;
+      border: 1px solid var(--ea-border-subtle);
+
+      &:hover,
+      &:focus-visible {
+        background: var(--ea-surface-l2);
+      }
+    }
+  }
+}
+
+// The before-header-panel outlet hosts the EA nav pills and the search bar;
+// stretch it to fill the space between the logo and the right-hand panel.
+.d-header .before-header-panel-outlet {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  gap: var(--ea-space-600);
+  min-width: 0;
+}
+
+// EA header search bar (ea-header-search.gjs) — the 650px input pill from
+// Figma 1257:102078. The native icon button is hidden while this is enabled.
+// Specificity: core styles `.d-header input` with dark $primary text and a
+// 16px font, so these rules must override both to keep the pill light-on-dark.
+.d-header .ea-header-search {
+  position: relative; // anchor for the search overlay
+  flex: 1 1 auto;
+  max-width: 650px;
+  margin-inline: auto;
+
+  &__form {
+    display: flex;
+    align-items: center;
+    gap: var(--ea-space-200);
+    height: 44px;
+    padding-inline: var(--ea-space-400);
+    border: 1px solid rgb(255 255 255 / 0.45);
+    border-radius: var(--ea-radius-full);
+    background: rgb(122 122 122 / 0.22);
+    backdrop-filter: blur(48px);
+    transition: border-color 0.15s ease, background 0.15s ease;
+
+    &:hover {
+      border-color: rgb(255 255 255 / 0.6);
+    }
+
+    &:focus-within {
+      border-color: var(--ea-border-highlight);
+      background: rgb(122 122 122 / 0.3);
+    }
+  }
+
+  &__icon {
+    flex: 0 0 auto;
+    width: 20px;
+    height: 20px;
+    color: var(--ea-content-regular);
+  }
+
+  &__input {
+    flex: 1 1 auto;
+    min-width: 0;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: none;
+    box-shadow: none;
+    color: var(--ea-content-bold);
+    caret-color: var(--ea-content-bold);
+    background: transparent;
+    font-family: var(--ea-font-text);
+    font-size: 14px;
+    line-height: 20px;
+    -webkit-appearance: none;
+    appearance: none;
+
+    &::placeholder {
+      color: var(--ea-content-subtle);
+      opacity: 1;
+    }
+
+    // Dark pill: keep the native search clear button legible.
+    &::-webkit-search-cancel-button {
+      filter: invert(1);
+    }
+  }
+}
+
+// EA header search overlay (ea-header-search-overlay.gjs) — the live dropdown
+// from Figma 1252:93373. Dark panel, rounded, floating under the search pill.
+.ea-header-search-overlay {
+  position: absolute;
+  top: calc(100% + var(--ea-space-200));
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  max-height: min(653px, 70vh);
+  overflow-y: auto;
+  padding: var(--ea-space-400);
+  border: 1px solid rgb(255 255 255 / 0.3);
+  border-radius: var(--ea-radius-lg);
+  background: #01081d;
+  box-shadow: 0 16px 40px rgb(0 0 0 / 0.55);
+
+  &__section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ea-space-200);
+  }
+
+  &__section-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--ea-space-200);
+  }
+
+  &__heading {
+    margin: 0;
+    color: var(--ea-content-bold);
+    font-family: var(--ea-font-text);
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+  }
+
+  &__clear {
+    padding: 0;
+    border: 0;
+    color: var(--ea-content-subtle);
+    background: transparent;
+    font-family: var(--ea-font-text);
+    font-size: 14px;
+    cursor: pointer;
+
+    &:hover,
+    &:focus-visible {
+      color: var(--ea-content-highlight);
+    }
+  }
+
+  &__status {
+    margin: 0;
+    padding: var(--ea-space-300) var(--ea-space-300) var(--ea-space-200);
+    color: var(--ea-content-subtle);
+    font-family: var(--ea-font-text);
+    font-size: 14px;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ea-space-100);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: var(--ea-space-300);
+    width: 100%;
+    padding: var(--ea-space-300);
+    border: 0;
+    border-radius: var(--ea-radius-sm);
+    color: var(--ea-content-bold);
+    background: transparent;
+    font-family: var(--ea-font-text);
+    font-size: 14px;
+    line-height: 20px;
+    text-align: left;
+    text-decoration: none;
+    cursor: pointer;
+
+    &:hover,
+    &:focus-visible {
+      background: var(--ea-surface-l2);
+    }
+  }
+
+  &__item-icon {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: var(--ea-radius-full);
+    color: var(--ea-content-regular);
+    background: var(--ea-surface-l2);
+
+    .d-icon {
+      width: 14px;
+      height: 14px;
+    }
+  }
+
+  &__item-text {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__divider {
+    height: 1px;
+    margin: var(--ea-space-300) 0;
+    border: 0;
+    background: var(--ea-border-subtle);
+  }
+}
+
+@media (width > 768px) {
+  html.ea-header-search-enabled .d-header .search-dropdown {
+    display: none;
+  }
+}
+
+// EA header navigation pills (ea-header-nav.gjs) between the logo and search.
+.ea-header-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--ea-space-200);
+
+  &__link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--ea-space-200);
+    height: 48px;
+    padding-inline: var(--ea-space-500);
+    border-radius: var(--ea-radius-full);
+    color: var(--ea-content-bold);
+    font-family: var(--ea-font-text);
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+    text-decoration: none;
+    white-space: nowrap;
+
+    &:hover,
+    &:focus-visible {
+      color: var(--ea-content-highlight);
+      background: var(--ea-surface-l2);
+    }
+  }
+
+  &__caret {
+    width: 20px;
+    height: 20px;
+    color: var(--ea-content-bold);
+  }
 }
 
 html.ea-gradient .d-header::before {
@@ -58,5 +380,346 @@ html.ea-header-scrolled .d-header {
 
   &::before {
     opacity: 0;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Mobile header — Figma 1359:109301 (393 × 116). Layout: menu button (44px)
+// on the left, the search pill centered (~241px), and the user icon on the
+// right. The desktop nav pills and search-bar input hide on mobile; the native
+// search icon and the sidebar drawer take over.
+// ---------------------------------------------------------------------------
+@media (width < 1024px) {
+  .d-header {
+    // Taller than desktop's 88px to fit the mobile row (Figma: 116px).
+    height: auto;
+    min-height: 56px;
+
+    // The global .wrap caps at 1800px with 40px side padding — fine on desktop,
+    // but it starves the mobile header. Let the header span the full viewport.
+    .wrap {
+      max-width: 100%;
+      padding-inline: var(--ea-space-400);
+    }
+
+    .contents {
+      height: auto;
+      min-height: 56px;
+      gap: var(--ea-space-300);
+      padding-block: var(--ea-space-200);
+    }
+
+    // Keep the sidebar menu button — mobile needs it to open the drawer.
+    .header-sidebar-toggle {
+      display: inline-flex;
+      flex: 0 0 auto;
+    }
+
+    // Center the search bar pill in the leftover space. The EA nav pills are
+    // hidden below, so the search bar must claim the full outlet width itself.
+    .before-header-panel-outlet {
+      flex: 1 1 0%;
+      min-width: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    // The EA nav pills are desktop-only.
+    .ea-header-nav {
+      display: none;
+    }
+
+    // The search bar pill fills the outlet (Figma mobile: ~241px centered).
+    .ea-header-search {
+      display: block;
+      flex: 1 1 auto;
+      max-width: 100%;
+      margin-inline: 0;
+
+      &__form {
+        height: 40px;
+        padding-inline: var(--ea-space-300);
+      }
+    }
+
+    // Slim the logo so the pill can take more of the row.
+    .home-logo-wrapper-outlet img {
+      max-height: 28px;
+      width: auto;
+    }
+
+    // Right side: keep the panel to the single account/avatar affordance so the
+    // search pill gets the design's dominant center width. The chat and EA
+    // notifications bells are reachable inside the user menu on mobile.
+    .panel {
+      flex: 0 0 auto;
+      gap: 0;
+
+      .header-buttons {
+        display: none;
+      }
+
+      .icons {
+        gap: 0;
+
+        // Hide the standalone chat icon on small screens.
+        .chat-header-icon {
+          display: none;
+        }
+      }
+    }
+
+    // Hide the redundant icon-button search when the EA pill is present.
+    .search-dropdown {
+      display: none;
+    }
+
+    // The EA notifications bell duplicates the user-menu badge on mobile.
+    .ea-notifications {
+      display: none;
+    }
+
+    // Notifications panel becomes full-width under the header.
+    .ea-notifications__panel {
+      position: fixed;
+      top: 100%;
+      right: var(--ea-space-200);
+      left: var(--ea-space-200);
+      width: auto;
+    }
+
+    // Search overlay follows the pill's narrower width.
+    .ea-header-search-overlay {
+      right: auto;
+      width: min(320px, calc(100vw - 2 * var(--ea-space-400)));
+    }
+  }
+}
+
+@media (width < 480px) {
+  // Tightest phones: collapse the auth buttons to just the login pill.
+  .d-header .auth-buttons .sign-up-button {
+    display: none;
+  }
+}
+
+// EA notifications panel (ea-notifications.gjs) — the Figma "Notifcation Panel"
+// (1378:126163). Bell toggle + floating dropdown of recent activity.
+.ea-notifications {
+  position: relative; // anchor for the panel
+  display: inline-flex;
+
+  &__toggle {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    border: 0;
+    border-radius: var(--ea-radius-full);
+    color: var(--ea-content-bold);
+    background: transparent;
+    cursor: pointer;
+
+    .d-icon {
+      width: 24px;
+      height: 24px;
+    }
+
+    &:hover,
+    &:focus-visible {
+      background: var(--ea-surface-l2);
+    }
+  }
+
+  &__count {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 18px;
+    height: 18px;
+    padding-inline: 4px;
+    border-radius: var(--ea-radius-full);
+    color: #fff;
+    background: #e45735;
+    font-family: var(--ea-font-text);
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  &__panel {
+    position: absolute;
+    top: calc(100% + var(--ea-space-200));
+    right: 0;
+    z-index: 1000;
+    width: min(712px, 92vw);
+    max-height: min(494px, 80vh);
+    overflow-y: auto;
+    padding: var(--ea-space-600);
+    border: 1px solid rgb(255 255 255 / 0.12);
+    border-radius: var(--ea-radius-lg);
+    background: #01081d;
+    box-shadow: 0 16px 40px rgb(0 0 0 / 0.55);
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--ea-space-400);
+    margin-bottom: var(--ea-space-400);
+  }
+
+  &__title {
+    margin: 0;
+    color: var(--ea-content-bold);
+    font-family: var(--ea-font-display);
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 32px;
+  }
+
+  &__view-all {
+    color: var(--ea-content-highlight);
+    font-family: var(--ea-font-text);
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+
+    &:hover,
+    &:focus-visible {
+      text-decoration: underline;
+    }
+  }
+
+  &__section-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--ea-space-200);
+    margin-bottom: var(--ea-space-300);
+  }
+
+  &__section-title {
+    margin: 0;
+    color: var(--ea-content-bold);
+    font-family: var(--ea-font-text);
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+  }
+
+  &__mark-read {
+    padding: 0;
+    border: 0;
+    color: var(--ea-content-subtle);
+    background: transparent;
+    font-family: var(--ea-font-text);
+    font-size: 14px;
+    cursor: pointer;
+
+    &:hover,
+    &:focus-visible {
+      color: var(--ea-content-highlight);
+    }
+  }
+
+  &__status {
+    margin: 0;
+    padding: var(--ea-space-400) 0;
+    color: var(--ea-content-subtle);
+    font-family: var(--ea-font-text);
+    font-size: 14px;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ea-space-100);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__item {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: var(--ea-space-300);
+    width: 100%;
+    padding: var(--ea-space-300);
+    border: 0;
+    border-radius: var(--ea-radius-sm);
+    color: var(--ea-content-regular);
+    background: transparent;
+    font-family: var(--ea-font-text);
+    font-size: 14px;
+    line-height: 20px;
+    text-align: left;
+    cursor: pointer;
+
+    &:hover,
+    &:focus-visible {
+      background: var(--ea-surface-l2);
+    }
+
+    &.--unread {
+      background: var(--ea-surface-l1);
+    }
+  }
+
+  &__item-icon {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--ea-radius-full);
+    color: var(--ea-content-regular);
+    background: var(--ea-surface-l2);
+
+    .d-icon {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  &__item-body {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    gap: var(--ea-space-100);
+    min-width: 0;
+  }
+
+  &__item-text {
+    color: var(--ea-content-bold);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__item-time {
+    color: var(--ea-content-subtle);
+    font-size: 12px;
+    line-height: 16px;
+  }
+
+  &__dot {
+    position: absolute;
+    top: var(--ea-space-300);
+    right: var(--ea-space-300);
+    width: 8px;
+    height: 8px;
+    border-radius: var(--ea-radius-full);
+    background: var(--ea-content-highlight);
   }
 }

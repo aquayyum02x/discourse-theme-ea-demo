@@ -1,11 +1,9 @@
 import Component from "@glimmer/component";
 import { tracked } from "@glimmer/tracking";
-import { fn } from "@ember/helper";
-import { on } from "@ember/modifier";
 import { action } from "@ember/object";
-import { eq, gt } from "discourse/truth-helpers";
-import icon from "discourse/helpers/d-icon";
 import { i18n } from "discourse-i18n";
+import EaCarouselNav from "./ea/ui/carousel-nav";
+import EaPaginationDots from "./ea/ui/pagination-dots";
 
 // Quests have no Discourse data model (see docs/open-questions.md Q-17), so they are
 // authored in theme settings until a real source is agreed.
@@ -50,26 +48,14 @@ export default class EaQuests extends Component {
           <h3 class="ea-quests__heading">
             {{i18n (themePrefix "homepage.quests.heading")}}
           </h3>
-          <div class="ea-carousel-nav">
-            <button
-              type="button"
-              class="ea-carousel-nav__button"
-              aria-label={{i18n (themePrefix "homepage.quests.previous")}}
-              disabled={{this.isAtStart}}
-              {{on "click" this.previous}}
-            >
-              {{icon "arrow-left"}}
-            </button>
-            <button
-              type="button"
-              class="ea-carousel-nav__button"
-              aria-label={{i18n (themePrefix "homepage.quests.next")}}
-              disabled={{this.isAtEnd}}
-              {{on "click" this.next}}
-            >
-              {{icon "arrow-right"}}
-            </button>
-          </div>
+          <EaCarouselNav
+            @previousLabel={{i18n (themePrefix "homepage.quests.previous")}}
+            @nextLabel={{i18n (themePrefix "homepage.quests.next")}}
+            @previousDisabled={{this.isAtStart}}
+            @nextDisabled={{this.isAtEnd}}
+            @onPrevious={{this.previous}}
+            @onNext={{this.next}}
+          />
         </header>
 
         <article class="ea-quests__card" aria-live="polite">
@@ -100,20 +86,12 @@ export default class EaQuests extends Component {
           {{/if}}
         </article>
 
-        {{#if (gt this.quests.length 1)}}
-          <div class="ea-quests__dots">
-            {{#each this.quests as |quest questIndex|}}
-              <button
-                type="button"
-                class="ea-quests__dot
-                  {{if (eq questIndex this.index) '--active'}}"
-                aria-label={{quest.title}}
-                aria-current="{{eq questIndex this.index}}"
-                {{on "click" (fn this.goTo questIndex)}}
-              ></button>
-            {{/each}}
-          </div>
-        {{/if}}
+        <EaPaginationDots
+          @items={{this.quests}}
+          @currentIndex={{this.index}}
+          @onSelect={{this.goTo}}
+          class="ea-quests__dots"
+        />
       </section>
     {{/if}}
   </template>

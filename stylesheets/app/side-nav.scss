@@ -22,7 +22,7 @@
     }
 
     .sidebar-section {
-      margin-bottom: var(--ea-space-300);
+      margin-bottom: var(--ea-space-200);
     }
 
     // Headers carry no meaning once the rail is icon-only; the links keep their own labels.
@@ -34,7 +34,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: var(--ea-space-200);
+      gap: var(--ea-space-150);
       padding: 0;
     }
 
@@ -47,7 +47,7 @@
       align-items: center;
       justify-content: center;
       width: 100%;
-      height: 52px;
+      height: 48px;
       padding: 0;
       border-radius: var(--ea-radius-md);
       background: transparent;
@@ -115,5 +115,60 @@
     .sidebar-section[data-section-name="tags"] {
       display: none;
     }
+  }
+
+  // The design rail is quick-links + games only. The chat plugin injects its own
+  // sections (search / channels / DMs) into the sidebar, which overflow the fixed
+  // 92px rail and trigger a scrollbar. Messaging is already covered by the
+  // ea-messages quick-link, so drop the chat sections in rail mode.
+  html.ea-side-nav-rail {
+    .sidebar-section[data-section-name="chat-search"],
+    .sidebar-section[data-section-name="chat-channels"],
+    .sidebar-section[data-section-name="chat-dms"] {
+      display: none;
+    }
+
+    // The rail is a fixed-height icon strip, not a scroller — clip any residual
+    // overflow so it can neither scroll nor show a scrollbar, matching the
+    // design's static rail. Content taller than the viewport is trimmed at the
+    // bottom (the least-critical game tiles) rather than scrolling.
+    .sidebar-sections,
+    .sidebar-container,
+    .sidebar-wrapper {
+      overflow-y: hidden;
+      scrollbar-width: none; // Firefox
+
+      &::-webkit-scrollbar {
+        display: none; // Chrome/Safari
+      }
+    }
+  }
+}
+
+// Permanent rail: the Figma DESKTOP header has no hamburger, and the rail is
+// always docked. On mobile the design keeps a 44px menu button (the sidebar is
+// a drawer), so the toggle stays visible there.
+@media (width >= 1024px) {
+  html.ea-side-nav-permanent .header-sidebar-toggle {
+    display: none !important;
+  }
+
+  // If a route ever drops has-sidebar-page, the initializer re-adds it; this is
+  // the visual guarantee that the rail column stays reserved.
+  html.ea-side-nav-permanent body:not(.has-sidebar-page) #main-outlet-wrapper {
+    grid-template-columns: var(--d-sidebar-width, 92px) minmax(0, 1fr);
+  }
+}
+
+// Mobile: the sidebar is a slide-over drawer, never a layout column.
+@media (width < 1024px) {
+  #main-outlet-wrapper {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  // Prevent any horizontal overflow from the fixed rail or wide grids.
+  html,
+  body {
+    overflow-x: hidden;
   }
 }

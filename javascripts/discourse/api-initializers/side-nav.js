@@ -20,6 +20,10 @@ export default apiInitializer((api) => {
     "ea-side-nav-hide-default",
     !!settings.side_nav_hide_default_sections
   );
+  root.classList.toggle(
+    "ea-side-nav-permanent",
+    !!settings.side_nav_permanent
+  );
 
   api.addSidebarSection(
     (BaseCustomSidebarSection, BaseCustomSidebarSectionLink) => {

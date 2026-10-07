@@ -131,21 +131,6 @@
     gap: var(--ea-space-200);
     margin-top: var(--ea-space-600);
   }
-
-  &__dot {
-    width: 8px;
-    height: 8px;
-    padding: 0;
-    border: none;
-    border-radius: var(--ea-radius-full);
-    background: var(--ea-border-subtle);
-    cursor: pointer;
-
-    &.--active {
-      width: 24px;
-      background: var(--ea-content-bold);
-    }
-  }
 }
 
 .ea-heroes {

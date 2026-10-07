@@ -13,29 +13,12 @@
   }
 
   &__card {
-    display: flex;
-    flex-direction: column;
     gap: var(--ea-space-400);
-    text-decoration: none;
 
     &:hover .block-announcements__title,
     &:focus-visible .block-announcements__title {
       color: var(--ea-content-highlight);
     }
-  }
-
-  &__media {
-    display: block;
-    overflow: hidden;
-    border-radius: var(--ea-radius-lg);
-    background: var(--ea-surface-l2);
-  }
-
-  &__image {
-    display: block;
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    object-fit: cover;
   }
 
   &__body {

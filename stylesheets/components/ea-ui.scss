@@ -1,0 +1,86 @@
+// EA UI kit primitives — styles for the shared components in
+// javascripts/discourse/components/ea/ui/. Block-specific layout stays in
+// stylesheets/blocks/. See docs/component-library.md.
+
+// ea/ui/media-card — shared card anatomy (announcements, box-art slider,
+// recommended tiles). Blocks override radius/aspect as needed.
+.ea-media-card {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+
+  &__media {
+    position: relative;
+    display: block;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-radius: var(--ea-radius-lg);
+    background: var(--ea-surface-l2);
+  }
+
+  &__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &__placeholder {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__body {
+    min-width: 0;
+  }
+}
+
+// ea/ui/carousel — horizontal snap viewport. Scroll-edge state and arrow
+// behaviour live in the component; consumers style their own list/items.
+.ea-carousel__viewport {
+  overflow-x: auto;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+  overscroll-behavior-inline: contain;
+  scroll-snap-type: x mandatory;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+// ea/ui/badge — "owned" variant: floating inverse pill centred on the media.
+.ea-badge.--owned {
+  position: absolute;
+  bottom: var(--ea-space-300);
+  left: 50%;
+  height: auto;
+  padding: var(--ea-space-150) var(--ea-space-300);
+  transform: translateX(-50%);
+  border: none;
+  color: var(--ea-content-inverse);
+  background: var(--ea-surface-inverse);
+}
+
+// ea/ui/pagination-dots — dot indicators for stacked carousels.
+.ea-pagination-dots {
+  display: flex;
+  justify-content: center;
+  gap: var(--ea-space-200);
+
+  &__dot {
+    width: 8px;
+    height: 8px;
+    padding: 0;
+    border: none;
+    border-radius: var(--ea-radius-full);
+    background: var(--ea-border-subtle);
+    cursor: pointer;
+
+    &.--active {
+      width: 24px;
+      background: var(--ea-content-bold);
+    }
+  }
+}
