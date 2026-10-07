@@ -3,23 +3,38 @@ show_breadcrumbs:
   default: true
   refresh: true
 
-# Demo: header navigation ("EA Help", "Browse by Topic")
-header_nav_enabled:
+# Demo: the EA Forums header (Figma 1252:93358). Toggle the whole thing on/off.
+ea_header_enabled:
   type: bool
   default: true
   refresh: true
 
-header_nav_help_label:
-  default: "EA Help"
+header_product_name:
+  default: "Forums"
 
-header_nav_help_url:
-  default: "https://help.ea.com"
+header_search_placeholder:
+  default: "Search for trending topics"
 
-header_nav_browse_label:
-  default: "Browse by Topic"
-
-header_nav_browse_url:
-  default: "/categories"
+# Nav pills between the logo and the search bar. "caret: true" adds a ▾ icon.
+header_nav_links:
+  type: objects
+  default:
+    - text: "EA Help"
+      url: "https://help.ea.com"
+    - text: "Browse by Topic"
+      url: "/categories"
+      caret: true
+  schema:
+    name: link
+    properties:
+      text:
+        type: string
+        required: true
+      url:
+        type: string
+      caret:
+        type: boolean
+        default: false
 
 category_sections:
   type: objects

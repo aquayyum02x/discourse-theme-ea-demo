@@ -1,0 +1,56 @@
+// ─────────────────────────────────────────────────────────────────────────────
+// EA DESIGN TOKENS — copied directly from the Figma "EA Forums (Discourse)"
+// library (file JLFRhB96AjdqP4SSfXBx2O) via the Figma variable definitions.
+//
+// These are CSS custom properties. Every component reads from THESE variables
+// instead of hardcoding a color or size. That means a rebrand later is a
+// one-line change here, and the whole UI updates.
+//
+// Token name → CSS variable mapping:
+//   "Background/Base"            → --ea-bg-base
+//   "Content/Neutral Bold"       → --ea-content-bold
+//   "Radius/Full"                → --ea-radius-full
+//   "Spacing/400"                → --ea-space-400
+//   …and so on.
+// ─────────────────────────────────────────────────────────────────────────────
+
+:root {
+  // ── Backgrounds ─────────────────────────────────────────────
+  --ea-bg-base: #01081d; // "Background/Base" — the dark page color
+
+  // ── Content (text / icon) colors ────────────────────────────
+  --ea-content-bold: rgb(255 255 255 / 0.97); // "Content/Neutral Bold" #fffffff7
+  --ea-content-subtle: rgb(255 255 255 / 0.5); // "Content/Neutral Subtle" #ffffff80
+  --ea-content-inverse-bold: #0f0f0f; // "Content/Inverse Bold" — dark text on white
+
+  // ── Borders ─────────────────────────────────────────────────
+  --ea-border-subtle: rgb(255 255 255 / 0.1); // "Border/Neutral Subtle" #ffffff1a
+
+  // ── Interactive ─────────────────────────────────────────────
+  --ea-interactive-bold: #ffffff; // "Interactive/Neutral Bold" — the white Sign-In pill
+
+  // ── Input (the search pill) ─────────────────────────────────
+  --ea-input-bg: rgb(61 61 61 / 0.16); // "Input/Background/Rest" #3d3d3d29
+  --ea-input-border: rgb(255 255 255 / 0.3); // "Input/Border/Rest" #ffffff4d
+
+  // ── Radius ──────────────────────────────────────────────────
+  --ea-radius-full: 9999px; // "Radius/Full" — fully-round pill shape
+
+  // ── Spacing (Figma "Spacing/*" scale) ───────────────────────
+  --ea-space-200: 8px; // "Spacing/200"
+  --ea-space-400: 16px; // "Spacing/400"
+  --ea-space-1000: 40px; // "Spacing/1000" — the gap after the logo
+
+  // ── Component padding (Figma "Component/Medium|Small/*") ────
+  --ea-pill-padding-x: 20px; // "Component/Medium/Padding Horizontal"
+  --ea-pill-padding-y: 16px; // "Component/Medium/Padding Vertical"
+  --ea-input-padding-x: 16px; // "Component/Small/Padding Horizontal"
+  --ea-input-padding-y: 12px; // "Component/Small/Padding Vertical"
+  --ea-gap-sm: 8px; // "Component/Medium/Gap"
+
+  // ── Typography (Figma "Body/*" text styles) ─────────────────
+  // The licensed EA fonts fall back to the system stack if the webfont files
+  // aren't hosted yet — the layout is identical either way.
+  --ea-font-display: "Electronic Arts Display", var(--font-family);
+  --ea-font-text: "Electronic Arts Text", var(--font-family);
+}

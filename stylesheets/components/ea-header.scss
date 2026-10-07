@@ -1,0 +1,135 @@
+// ─────────────────────────────────────────────────────────────────────────────
+// DEMO: EA Forums header (Figma node 1252:93358)
+//
+// Every value below references a TOKEN from stylesheets/brand/tokens.scss, which
+// was copied from the Figma library. So this file contains almost no raw numbers
+// — it reads the design's spacing, color, and radius straight from the tokens.
+//
+// Layout (matches Figma):  [logo + name]  40px  [nav pills]   ←→   [search pill]
+// ─────────────────────────────────────────────────────────────────────────────
+
+.ea-header {
+  display: flex;
+  align-items: center;
+  gap: var(--ea-space-1000); // Figma "Spacing/1000" = 40px between logo and nav
+  min-width: 0;
+  font-family: var(--ea-font-text);
+
+  // ── Left: EA logo + product name ──────────────────────────────
+  &__brand {
+    display: flex;
+    align-items: center;
+    gap: var(--ea-space-200); // Figma "Spacing/200" = 8px between logo and text
+    flex: 0 0 auto;
+    text-decoration: none;
+  }
+
+  &__logo {
+    width: 32px;
+    height: 32px; // Figma logo mark is 32×32
+    display: block;
+  }
+
+  &__product {
+    // Figma "Body/Large Bold": 18px / bold / line-height 32
+    color: var(--ea-content-bold);
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 32px;
+    white-space: nowrap;
+  }
+
+  // ── Nav pills ─────────────────────────────────────────────────
+  &__nav {
+    display: flex;
+    align-items: center;
+    gap: var(--ea-space-200); // 8px between pills
+  }
+
+  &__pill {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--ea-gap-sm); // Figma "Component/Medium/Gap" = 8px
+    // Figma "Component/Medium" padding: 20px sides, 16px top/bottom
+    padding: var(--ea-pill-padding-y) var(--ea-pill-padding-x);
+    border-radius: var(--ea-radius-full); // Figma "Radius/Full" — the pill shape
+    color: var(--ea-content-bold);
+    // Figma "Body/Medium Bold": 16px / bold / line-height 24
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background 0.15s ease;
+
+    .d-icon {
+      width: 20px;
+      height: 20px; // Figma caret is 20×20
+    }
+
+    &:hover,
+    &:focus-visible {
+      background: rgb(255 255 255 / 0.1);
+    }
+  }
+
+  // ── Center: the search pill ───────────────────────────────────
+  &__search {
+    display: flex;
+    align-items: center;
+    gap: var(--ea-space-200);
+    flex: 1 1 auto;
+    max-width: 650px; // Figma search field is 650px wide
+    height: 44px;
+    // Figma "Component/Small" padding: 16px sides, 12px top/bottom
+    padding-inline: var(--ea-input-padding-x);
+    border: 1px solid var(--ea-input-border); // "Input/Border/Rest"
+    border-radius: var(--ea-radius-full);
+    background: var(--ea-input-bg); // "Input/Background/Rest"
+    backdrop-filter: blur(48px); // the frosted-glass effect in the design
+
+    &:focus-within {
+      border-color: var(--ea-content-subtle);
+    }
+  }
+
+  &__search-icon {
+    flex: 0 0 auto;
+    width: 20px;
+    height: 20px;
+    color: var(--ea-content-subtle);
+  }
+
+  &__search-input {
+    flex: 1 1 auto;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: none;
+    box-shadow: none;
+    color: var(--ea-content-bold);
+    background: transparent;
+    // Figma "Body/Small Regular": 14px / line-height 20
+    font-family: var(--ea-font-text);
+    font-size: 14px;
+    line-height: 20px;
+
+    &::placeholder {
+      color: var(--ea-content-subtle); // "Content/Neutral Subtle"
+      opacity: 1;
+    }
+  }
+}
+
+// On small screens the nav pills and wide search don't fit — hide the pills and
+// let the search bar fill the space. The desktop layout is the Figma target.
+@media (width < 900px) {
+  .ea-header {
+    gap: var(--ea-space-400);
+
+    &__nav {
+      display: none;
+    }
+  }
+}

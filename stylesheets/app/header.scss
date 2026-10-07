@@ -1,14 +1,32 @@
 .d-header {
   position: relative;
-  background-color: var(--ea-header-bg);
+  // Figma "Background/Base" — the dark header bar.
+  background-color: var(--ea-bg-base);
+  // Figma "Border/Neutral Subtle" — the hairline under the header.
+  border-bottom: 1px solid var(--ea-border-subtle);
   box-shadow: none;
   transition: box-shadow 0.25s ease;
+
+  // Figma header is 88px tall on desktop.
+  height: 88px;
+
+  .wrap {
+    max-width: 100%;
+    padding-inline: var(--ea-space-400);
+  }
+
+  .contents {
+    display: flex;
+    align-items: center;
+    gap: var(--ea-space-1000);
+    height: 88px;
+  }
 
    &::before {
     content: "";
     position: absolute;
     inset: 0;
-    background: #01081d !important;
+    background: var(--ea-bg-base) !important;
     opacity: 0;
     transition: opacity 0.25s ease;
     pointer-events: none;
@@ -47,6 +65,12 @@
       color: var(--primary);
     }
   }
+}
+
+// Our EA header provides the brand (logo + "Forums"), so hide Discourse's
+// default site-logo image in that slot to avoid a duplicate mark.
+.home-logo-wrapper-outlet .title > a > img#site-logo {
+  display: none;
 }
 
 html.ea-gradient .d-header::before {
