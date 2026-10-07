@@ -117,15 +117,19 @@ announcements:
     - title: "Apex Legends: Marked Patch Notes"
       subtitle: "Apex Legends"
       size: "big"
+      image: "https://picsum.photos/seed/apex/1200/675"
     - title: "Friday Highlights"
       subtitle: "The Sims 4"
       size: "small"
+      image: "https://picsum.photos/seed/sims/800/450"
     - title: "Battlefield 6 Update Notes"
       subtitle: "Battlefield"
       size: "small"
+      image: "https://picsum.photos/seed/battlefield/800/450"
     - title: "Full FC 27 Player Database"
       subtitle: "EA Sports FC 27"
       size: "small"
+      image: "https://picsum.photos/seed/fc27/800/450"
   schema:
     name: announcement
     properties:

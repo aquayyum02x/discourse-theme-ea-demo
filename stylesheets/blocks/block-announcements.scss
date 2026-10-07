@@ -2,7 +2,6 @@
   &__grid {
     display: flex;
     align-items: stretch;
-    height: 28em;
     gap: var(--space-3, 0.85em);
   }
 
@@ -13,13 +12,22 @@
     .block-announcements__card {
       height: 100%;
     }
+
+    // The hero card is taller, so its media can fill the extra space.
+    .block-announcements__media {
+      flex: 1 1 auto;
+      aspect-ratio: auto;
+      min-height: 0;
+    }
   }
 
   &__small-grid {
     display: grid;
     flex: 1 1 50%;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    grid-template-rows: repeat(2, 1fr);
+    // Size rows to content (media aspect-ratio + footer), not a forced fraction,
+    // so small cards never collapse.
+    grid-auto-rows: auto;
     gap: var(--space-3, 0.85em);
     min-width: 0;
   }
@@ -53,9 +61,18 @@
   &__media {
     position: relative;
     display: block;
-    flex: 1 1 auto;
+    // Keep the 16:9 shape and never let a grid/flex row crush it to zero —
+    // flex: 0 0 auto stops it shrinking, aspect-ratio keeps it proportional.
+    flex: 0 0 auto;
     overflow: hidden;
-    min-height: 0;
+    // Hold a stable 16:9 shape even before (or if) the image loads, so a failed
+    // or slow image never collapses the card. Branded dark gradient placeholder.
+    aspect-ratio: 16 / 9;
+    background: linear-gradient(
+      135deg,
+      #101a35,
+      color-mix(in srgb, var(--ea-bg-base, #01081d) 70%, #0c51ec)
+    );
   }
 
   &__image {
@@ -63,6 +80,9 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    // Sit on top of the placeholder gradient once the image loads.
+    position: absolute;
+    inset: 0;
   }
 
   &__footer {
