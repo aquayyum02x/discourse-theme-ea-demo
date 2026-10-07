@@ -1,6 +1,7 @@
 import Component from "@glimmer/component";
 import { htmlSafe } from "@ember/template";
 import { block } from "discourse/blocks";
+import UiSectionHeader from "../components/ui/section-header";
 
 const AnnouncementCard = <template>
   {{#if @card.link}}
@@ -95,9 +96,11 @@ export default class BlockAnnouncements extends Component {
     {{#if this.cards.length}}
       <section class="block-announcements">
         {{#if settings.announcements_heading}}
-          <h2 class="ea-section-heading">
-            {{htmlSafe settings.announcements_heading}}
-          </h2>
+          {{! Use the shared library header instead of a one-off <h2>. }}
+          <UiSectionHeader
+            @title={{htmlSafe settings.announcements_heading}}
+            @icon="bullhorn"
+          />
         {{/if}}
 
         <div class="block-announcements__grid">

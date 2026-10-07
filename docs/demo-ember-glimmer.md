@@ -15,6 +15,20 @@
 | **Announcements** — hero + grid of cards | [blocks/block-announcements.gjs](../javascripts/discourse/blocks/block-announcements.gjs) | [api-initializers/homepage-blocks.gjs](../javascripts/discourse/api-initializers/homepage-blocks.gjs) | [block-announcements.scss](../stylesheets/blocks/block-announcements.scss) |
 | **Design tokens** (colors, spacing, radius from Figma) | — | — | [tokens.scss](../stylesheets/brand/tokens.scss) |
 
+## A reusable component library
+
+To keep the code DRY, shared building blocks live in one folder —
+`javascripts/discourse/components/ui/` — and any feature can drop them in:
+
+| Library component | What it is | Used by |
+|---|---|---|
+| [ui/section-header.gjs](../javascripts/discourse/components/ui/section-header.gjs) | A section title + icon + action slot | the Announcements block's heading |
+| [ui/badge.gjs](../javascripts/discourse/components/ui/badge.gjs) | A small pill (e.g. "Solved", a tag) | ready for any card |
+
+This is the pattern that scales: build a piece once in the library, then compose
+it into features. The announcements block's heading, for example, is just
+`<UiSectionHeader @title="Announcements" @icon="bullhorn" />` — no one-off markup.
+
 ## The process we're proving (the point of the demo)
 
 **Figma design → tokens → Glimmer component → Discourse.** Four steps:

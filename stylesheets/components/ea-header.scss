@@ -78,9 +78,13 @@
     display: flex;
     align-items: center;
     gap: var(--ea-space-200);
-    flex: 1 1 auto;
+    // flex-basis 320px means "never narrower than this"; it grows toward the
+    // Figma 650px width as space allows, so the pill never collapses.
+    flex: 1 1 320px;
+    min-width: 320px;
     max-width: 650px; // Figma search field is 650px wide
     height: 44px;
+    margin-inline: auto; // center it in the leftover header space
     // Figma "Component/Small" padding: 16px sides, 12px top/bottom
     padding-inline: var(--ea-input-padding-x);
     border: 1px solid var(--ea-input-border); // "Input/Border/Rest"
